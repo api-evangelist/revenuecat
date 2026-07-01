@@ -1,0 +1,845 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscribers (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get or create a subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID of the customer."
+              }
+            ]
+          },
+          "docs": "Returns the latest subscriber information, creating the record if it does not exist."
+        },
+        {
+          "info": {
+            "name": "Delete a subscriber.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID of the customer."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a subscriber and all associated data."
+        },
+        {
+          "info": {
+            "name": "Update subscriber attributes.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/attributes",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID of the customer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sets or updates custom and reserved subscriber attributes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Purchases & Receipts (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a purchase (validate a receipt).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/receipts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates a store receipt/token from App Store, Google Play, Amazon, Stripe, Roku, or Paddle and attaches it to a subscriber."
+        },
+        {
+          "info": {
+            "name": "Refund a transaction.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/transactions/:store_transaction_identifier/refund",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "store_transaction_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Issues a refund for a Google Play transaction."
+        },
+        {
+          "info": {
+            "name": "Defer a Google subscription.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/subscriptions/:product_identifier/defer",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "product_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Defers the next renewal date of an active Google Play subscription."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entitlements (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Grant a promotional entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/entitlements/:entitlement_identifier/promotional",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlement_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Grants a complimentary entitlement to a subscriber for a fixed duration."
+        },
+        {
+          "info": {
+            "name": "Revoke promotional entitlements.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/entitlements/:entitlement_identifier/revoke_promotionals",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlement_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revokes all promotional grants of an entitlement from a subscriber."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Offerings (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get offerings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/offerings",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the offerings resolved for a subscriber, including targeting and experiment evaluation."
+        },
+        {
+          "info": {
+            "name": "Override the current offering.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/offerings/:offering_uuid/override",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Overrides the current offering shown to a specific subscriber."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects"
+          },
+          "docs": "Lists all projects the API key has access to."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Apps (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List apps.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/apps",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists the apps (store integrations) within a project."
+        },
+        {
+          "info": {
+            "name": "Create an app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/apps",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an app within a project."
+        },
+        {
+          "info": {
+            "name": "Get an app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/apps/:app_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific app."
+        },
+        {
+          "info": {
+            "name": "Delete an app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/apps/:app_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "app_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an app."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/customers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists customers within a project."
+        },
+        {
+          "info": {
+            "name": "Create a customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/customers",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a customer within a project."
+        },
+        {
+          "info": {
+            "name": "Get a customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/customers/:customer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific customer."
+        },
+        {
+          "info": {
+            "name": "Delete a customer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/customers/:customer_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a customer."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Products (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/products",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists products within a project."
+        },
+        {
+          "info": {
+            "name": "Create a product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/products",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a product within a project."
+        },
+        {
+          "info": {
+            "name": "Get a product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/products/:product_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific product."
+        },
+        {
+          "info": {
+            "name": "Delete a product.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/products/:product_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a product."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entitlements (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List entitlements.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/entitlements",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists entitlement definitions within a project."
+        },
+        {
+          "info": {
+            "name": "Create an entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/entitlements",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an entitlement definition."
+        },
+        {
+          "info": {
+            "name": "Get an entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/entitlements/:entitlement_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlement_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific entitlement."
+        },
+        {
+          "info": {
+            "name": "Delete an entitlement.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/entitlements/:entitlement_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entitlement_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an entitlement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Offerings (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List offerings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists offering definitions within a project."
+        },
+        {
+          "info": {
+            "name": "Create an offering.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an offering definition."
+        },
+        {
+          "info": {
+            "name": "Get an offering.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings/:offering_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific offering."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Packages (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List packages.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings/:offering_id/packages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists packages within an offering."
+        },
+        {
+          "info": {
+            "name": "Create a package.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings/:offering_id/packages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a package within an offering."
+        },
+        {
+          "info": {
+            "name": "Get a package.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings/:offering_id/packages/:package_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "package_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a specific package."
+        },
+        {
+          "info": {
+            "name": "Delete a package.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v2/projects/:project_id/offerings/:offering_id/packages/:package_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "package_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a package."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

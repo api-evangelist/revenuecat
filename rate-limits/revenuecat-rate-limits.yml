@@ -1,0 +1,91 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: RevenueCat
+providerId: revenuecat
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: true
+tags:
+- Subscriptions
+- In-App Purchases
+- Billing
+- Mobile
+- Entitlements
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  RevenueCat enforces per-endpoint rate limits expressed in requests per minute
+  (RPM), scoped by the endpoint being called rather than by billing tier.
+  High-frequency read endpoints such as GET /subscribers get a higher allowance
+  than write and administrative endpoints. Limits are shared across all API keys
+  for a project. Requests over the limit return HTTP 429 with rate-limit headers
+  (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, Retry-After).
+notes: >-
+  RPM values below reflect RevenueCat's published per-endpoint tiers at the time
+  of writing; confirm exact per-endpoint numbers in the REST API reference during
+  reconciliation, as they are periodically adjusted.
+sources:
+- https://www.revenuecat.com/docs/api-v1
+- https://www.revenuecat.com/docs/api-v2
+responseCodes:
+  throttled: 429
+headers:
+- X-RateLimit-Limit
+- X-RateLimit-Remaining
+- X-RateLimit-Reset
+- Retry-After
+limits:
+- name: Get or Create Subscriber (GET /subscribers/{app_user_id})
+  scope: endpoint
+  metric: requests
+  limit: 6000
+  timeFrame: minute
+  notes: High-throughput read endpoint for live subscriber lookups.
+- name: Create Purchase (POST /receipts)
+  scope: endpoint
+  metric: requests
+  limit: 1200
+  timeFrame: minute
+  notes: Receipt validation across App Store, Play, Amazon, Stripe, Roku, Paddle.
+- name: Update Subscriber Attributes (POST /subscribers/{app_user_id}/attributes)
+  scope: endpoint
+  metric: requests
+  limit: 6000
+  timeFrame: minute
+  notes: Attribute writes; batches multiple attributes per call.
+- name: Grant / Revoke Promotional Entitlement (v1)
+  scope: endpoint
+  metric: requests
+  limit: 300
+  timeFrame: minute
+  notes: Administrative entitlement operations.
+- name: Get Offerings (GET /subscribers/{app_user_id}/offerings)
+  scope: endpoint
+  metric: requests
+  limit: 6000
+  timeFrame: minute
+  notes: Paywall/offering resolution reads.
+- name: v2 Read Endpoints (GET /projects/**)
+  scope: endpoint
+  metric: requests
+  limit: 60
+  timeFrame: minute
+  notes: v2 management/read endpoints (projects, apps, customers, products, entitlements, offerings, packages).
+- name: v2 Write Endpoints (POST / DELETE /projects/**)
+  scope: endpoint
+  metric: requests
+  limit: 30
+  timeFrame: minute
+  notes: v2 catalog create/update/delete operations run at a lower administrative rate.
+policies:
+- name: Per-Endpoint Limits
+  description: Limits are applied per endpoint, so heavy reads do not consume the write budget and vice versa.
+- name: 429 Handling
+  description: On HTTP 429 clients should honor Retry-After and back off exponentially with jitter.
+- name: Header-Driven Backoff
+  description: Inspect X-RateLimit-Remaining and X-RateLimit-Reset to pace requests before hitting the limit.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

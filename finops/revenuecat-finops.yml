@@ -1,0 +1,99 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: RevenueCat
+providerId: revenuecat
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: true
+tags:
+- Subscriptions
+- In-App Purchases
+- Billing
+- Mobile
+- Entitlements
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of RevenueCat spend. RevenueCat's own cost is a percentage of the
+  revenue it tracks rather than a per-API-call charge: $0 up to $2,500 monthly
+  tracked revenue (MTR), then 1% of MTR above that on the Pro plan, 1% of
+  conversions for Growth Tools, and negotiated volume discounts on Enterprise.
+  Cost therefore scales with subscription revenue, so the primary FinOps levers
+  are accurate revenue tracking configuration, entitlement hygiene, and
+  Enterprise volume terms rather than request throttling.
+notes: >-
+  Percentage-of-tracked-revenue pricing means RevenueCat cost is a function of
+  billed subscription revenue; verify MTR definition and any volume discounts
+  during reconciliation.
+sources:
+- https://www.revenuecat.com/pricing/
+- https://www.revenuecat.com/docs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: RevenueCat
+serviceCategory: Developer Tools
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: RevenueCat
+  ServiceCategory: Developer Tools
+  ProviderName: RevenueCat
+  PublisherName: RevenueCat
+  InvoiceIssuerName: RevenueCat
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: monthly_tracked_revenue
+  description: Subscription and purchase revenue RevenueCat tracks in a month; the billing base for the Pro plan.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - project
+  - app
+  - store
+- name: pro_fee
+  description: 1% fee on monthly tracked revenue above the $2,500 free allowance.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - project
+- name: growth_tools_revenue
+  description: Revenue from conversions attributed to RevenueCat paywalls and web-to-app funnels, billed at 1%.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - project
+  - tool
+- name: active_subscriptions
+  description: Count of active subscriptions monitored, a driver of tracked revenue.
+  unit: subscriptions
+  aggregation: sum
+  dimensions:
+  - project
+  - app
+  - product
+principles:
+- name: Visibility
+  description: Use RevenueCat Charts and the v2 API to attribute tracked revenue by project, app, product, and store.
+- name: Allocation
+  description: Separate projects/apps per product line so RevenueCat cost maps to internal cost centers and revenue streams.
+- name: Optimization
+  description: Keep tracking configuration accurate to avoid over-counting MTR; prune stale products/entitlements; negotiate Enterprise volume discounts as MTR grows.
+- name: Accountability
+  description: Assign an owner per project; reconcile the RevenueCat invoice against tracked revenue and store payouts monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

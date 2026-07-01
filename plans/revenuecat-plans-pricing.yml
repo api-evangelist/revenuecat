@@ -1,0 +1,123 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: RevenueCat
+providerId: revenuecat
+created: '2026-07-01'
+modified: '2026-07-01'
+reconciled: true
+tags:
+- Subscriptions
+- In-App Purchases
+- Billing
+- Mobile
+- Entitlements
+- Plans
+description: >-
+  RevenueCat prices on monthly tracked revenue (MTR), not on API calls. The Pro
+  plan is free for up to $2,500 in MTR, then bills 1% of tracked revenue once
+  that threshold is exceeded, with all features and data access included. A
+  Growth Tools option lets teams use RevenueCat's paywalls and web-to-app
+  funnels on their own infrastructure for 1% of tracked revenue on conversions
+  from those tools. Enterprise adds volume discounts, flexible tracking
+  configurations, dedicated support, and custom SLAs for high-volume apps.
+notes: >-
+  MTR thresholds and rates are as published on the RevenueCat pricing page;
+  verify current terms and any high-volume discounts during reconciliation.
+sources:
+- https://www.revenuecat.com/pricing/
+- https://www.revenuecat.com/docs
+plans:
+- id: revenuecat-pro-free
+  name: Pro (Free Tier)
+  type: free
+  description: >-
+    Full RevenueCat platform - SDKs, v1 and v2 REST APIs, entitlements,
+    offerings, paywalls, analytics, and webhooks - free while monthly tracked
+    revenue stays at or below $2,500.
+  entries:
+  - label: Monthly Tracked Revenue (free allowance)
+    name: mtr_free
+    type: usage
+    metric: tracked_revenue
+    limit: 2500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '0.00'
+    userMultiplied: false
+  elements:
+  - name: Cross-Platform SDKs
+  - name: REST API v1
+  - name: REST API v2
+  - name: Entitlements
+  - name: Offerings and Paywalls
+  - name: Charts and Analytics
+  - name: Webhooks
+- id: revenuecat-pro
+  name: Pro
+  type: usage
+  description: >-
+    Once monthly tracked revenue exceeds $2,500, RevenueCat bills 1% of tracked
+    revenue with all features and full data access included.
+  entries:
+  - label: Tracked Revenue Above Free Allowance
+    name: mtr_billed
+    type: usage
+    metric: tracked_revenue
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% of monthly tracked revenue above $2,500 MTR
+    userMultiplied: false
+  elements:
+  - name: All Pro Features
+  - name: Full Data Access
+  - name: Integrations
+- id: revenuecat-growth-tools
+  name: Growth Tools
+  type: usage
+  description: >-
+    Use RevenueCat paywalls and web-to-app funnels on your own billing
+    infrastructure, paying 1% of tracked revenue only on conversions driven by
+    those tools.
+  entries:
+  - label: Conversions via Growth Tools
+    name: growth_tools_revenue
+    type: usage
+    metric: tracked_revenue
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1% of tracked revenue on Growth Tools conversions
+    userMultiplied: false
+  elements:
+  - name: Paywalls
+  - name: Web-to-App Funnels
+- id: revenuecat-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom pricing for high-volume apps with volume discounts, flexible tracking
+    configurations, dedicated support, and custom SLAs. Contact RevenueCat sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume Discounts
+  - name: Flexible Tracking Configurations
+  - name: Dedicated Support
+  - name: Custom SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
