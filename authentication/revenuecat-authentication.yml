@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/revenuecat-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client)
+    or secret (server) keys; v2 uses dedicated v2 API keys.
+  sources:
+  - openapi/revenuecat-openapi.yml

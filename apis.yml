@@ -229,6 +229,10 @@ apis:
     RENEWAL, CANCELLATION, EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to
     a customer endpoint, secured with an Authorization header.
 common:
+- type: DomainSecurity
+  url: security/revenuecat-domain-security.yml
+- type: Authentication
+  url: authentication/revenuecat-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/RevenueCat
 - type: LinkedIn
@@ -243,6 +247,8 @@ common:
   url: rate-limits/revenuecat-rate-limits.yml
 - type: FinOps
   url: finops/revenuecat-finops.yml
+- type: Blog
+  url: https://www.revenuecat.com/blog/rss.xml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
