@@ -1,0 +1,13 @@
+{
+  "repo": "revenuecat",
+  "feeds": [
+    {
+      "source": "https://www.revenuecat.com/blog",
+      "feed_url": "https://www.revenuecat.com/blog/rss.xml",
+      "title": "RevenueCat Blog",
+      "saved": 30
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 55
+}
