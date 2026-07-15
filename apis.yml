@@ -229,6 +229,8 @@ apis:
     RENEWAL, CANCELLATION, EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to
     a customer endpoint, secured with an Authorization header.
 common:
+- type: AgenticAccess
+  url: agentic-access/revenuecat-agentic-access.yml
 - type: DomainSecurity
   url: security/revenuecat-domain-security.yml
 - type: Authentication
