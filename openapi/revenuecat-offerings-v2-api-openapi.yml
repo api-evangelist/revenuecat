@@ -1,0 +1,160 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Offerings (v2) API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Offerings (v2)
+  description: v2 offering definitions.
+paths:
+  /projects/{project_id}/offerings:
+    get:
+      operationId: listOfferingsV2
+      tags:
+      - Offerings (v2)
+      summary: List offerings
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of offerings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingListV2'
+      security:
+      - bearerAuth: []
+    post:
+      operationId: createOfferingV2
+      tags:
+      - Offerings (v2)
+      summary: Create an offering
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferingV2'
+      responses:
+        '201':
+          description: The created offering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingV2'
+      security:
+      - bearerAuth: []
+  /projects/{project_id}/offerings/{offering_id}:
+    get:
+      operationId: getOfferingV2
+      tags:
+      - Offerings (v2)
+      summary: Get an offering
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/OfferingId'
+      responses:
+        '200':
+          description: The offering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingV2'
+      security:
+      - bearerAuth: []
+components:
+  parameters:
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+    OfferingId:
+      name: offering_id
+      in: path
+      required: true
+      description: The offering identifier.
+      schema:
+        type: string
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+  schemas:
+    OfferingListV2:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/OfferingV2'
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type: string
+          nullable: true
+    OfferingV2:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: offering
+        project_id:
+          type: string
+        lookup_key:
+          type: string
+        display_name:
+          type: string
+        is_current:
+          type: boolean
+        created_at:
+          type: integer
+          format: int64
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

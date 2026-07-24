@@ -1,0 +1,96 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Projects API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Projects
+  description: v2 project management.
+paths:
+  /projects:
+    get:
+      operationId: listProjects
+      tags:
+      - Projects
+      summary: List projects
+      description: Lists all projects the API key has access to.
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+      security:
+      - bearerAuth: []
+components:
+  parameters:
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+  schemas:
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: project
+        name:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+    ProjectList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project'
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type: string
+          nullable: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

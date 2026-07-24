@@ -1,0 +1,175 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Customers API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Customers
+  description: v2 customer management.
+paths:
+  /projects/{project_id}/customers:
+    get:
+      operationId: listCustomers
+      tags:
+      - Customers
+      summary: List customers
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+      security:
+      - bearerAuth: []
+    post:
+      operationId: createCustomer
+      tags:
+      - Customers
+      summary: Create a customer
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      security:
+      - bearerAuth: []
+  /projects/{project_id}/customers/{customer_id}:
+    get:
+      operationId: getCustomer
+      tags:
+      - Customers
+      summary: Get a customer
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: The customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      security:
+      - bearerAuth: []
+    delete:
+      operationId: deleteCustomer
+      tags:
+      - Customers
+      summary: Delete a customer
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: The customer was deleted.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The App User ID.
+        object:
+          type: string
+          example: customer
+        project_id:
+          type: string
+        first_seen_at:
+          type: integer
+          format: int64
+        last_seen_at:
+          type: integer
+          format: int64
+        active_entitlements:
+          type: object
+    CustomerList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type: string
+          nullable: true
+  parameters:
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The customer (App User ID) identifier.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

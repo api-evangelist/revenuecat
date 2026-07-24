@@ -1,0 +1,174 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Products API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Products
+  description: v2 product catalog management.
+paths:
+  /projects/{project_id}/products:
+    get:
+      operationId: listProducts
+      tags:
+      - Products
+      summary: List products
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+      security:
+      - bearerAuth: []
+    post:
+      operationId: createProduct
+      tags:
+      - Products
+      summary: Create a product
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: The created product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+  /projects/{project_id}/products/{product_id}:
+    get:
+      operationId: getProduct
+      tags:
+      - Products
+      summary: Get a product
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+      - bearerAuth: []
+    delete:
+      operationId: deleteProduct
+      tags:
+      - Products
+      summary: Delete a product
+      servers:
+      - url: https://api.revenuecat.com/v2
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: product_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The product was deleted.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    ProductList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: product
+        store_identifier:
+          type: string
+        type:
+          type: string
+          description: subscription or one_time.
+        app_id:
+          type: string
+        display_name:
+          type: string
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type: string
+          nullable: true
+  parameters:
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

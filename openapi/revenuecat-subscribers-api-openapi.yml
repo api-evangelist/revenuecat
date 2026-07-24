@@ -1,0 +1,166 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Subscribers API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Subscribers
+  description: v1 customer (app user) records, attributes, and state.
+paths:
+  /subscribers/{app_user_id}:
+    get:
+      operationId: getOrCreateSubscriber
+      tags:
+      - Subscribers
+      summary: Get or create a subscriber
+      description: Returns the latest subscriber (customer) information for the given app_user_id, creating the record if it does not yet exist. Includes entitlements, subscriptions, and non-subscription purchases.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      - $ref: '#/components/parameters/PlatformHeader'
+      responses:
+        '200':
+          description: The subscriber object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+      security:
+      - bearerAuth: []
+    delete:
+      operationId: deleteSubscriber
+      tags:
+      - Subscribers
+      summary: Delete a subscriber
+      description: Permanently deletes a subscriber and all associated data.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      responses:
+        '200':
+          description: The subscriber was deleted.
+      security:
+      - bearerAuth: []
+  /subscribers/{app_user_id}/attributes:
+    post:
+      operationId: updateSubscriberAttributes
+      tags:
+      - Subscribers
+      summary: Update subscriber attributes
+      description: Sets or updates one or more custom or reserved subscriber attributes for the given app_user_id.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriberAttributesRequest'
+      responses:
+        '200':
+          description: Attributes updated.
+      security:
+      - bearerAuth: []
+components:
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
+  schemas:
+    SubscriberAttributesRequest:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                type: string
+              updated_at_ms:
+                type: integer
+                format: int64
+    SubscriberResponse:
+      type: object
+      properties:
+        request_date:
+          type: string
+          format: date-time
+        request_date_ms:
+          type: integer
+          format: int64
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type: string
+          format: date-time
+          nullable: true
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
+    Subscriber:
+      type: object
+      properties:
+        original_app_user_id:
+          type: string
+        first_seen:
+          type: string
+          format: date-time
+        last_seen:
+          type: string
+          format: date-time
+        management_url:
+          type: string
+          nullable: true
+        entitlements:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EntitlementInfo'
+        subscriptions:
+          type: object
+          additionalProperties:
+            type: object
+        non_subscriptions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        subscriber_attributes:
+          type: object
+          additionalProperties:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

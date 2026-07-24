@@ -1,0 +1,101 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Offerings (v1) API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Offerings (v1)
+  description: v1 offering fetch and override.
+paths:
+  /subscribers/{app_user_id}/offerings:
+    get:
+      operationId: getOfferings
+      tags:
+      - Offerings (v1)
+      summary: Get offerings
+      description: Returns the offerings configured for the app, evaluated for the given subscriber (including experiment / targeting resolution).
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      - $ref: '#/components/parameters/PlatformHeader'
+      responses:
+        '200':
+          description: The offerings object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingsResponse'
+      security:
+      - bearerAuth: []
+  /subscribers/{app_user_id}/offerings/{offering_uuid}/override:
+    post:
+      operationId: overrideOffering
+      tags:
+      - Offerings (v1)
+      summary: Override the current offering
+      description: Overrides the current offering shown to a specific subscriber.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      - name: offering_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The override was applied.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    OfferingsResponse:
+      type: object
+      properties:
+        current_offering_id:
+          type: string
+          nullable: true
+        offerings:
+          type: array
+          items:
+            type: object
+            properties:
+              identifier:
+                type: string
+              description:
+                type: string
+              packages:
+                type: array
+                items:
+                  type: object
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.

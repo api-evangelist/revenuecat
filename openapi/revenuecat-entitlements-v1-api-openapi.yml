@@ -1,0 +1,144 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST Apps Entitlements (v1) API
+  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+- url: https://api.revenuecat.com/v1
+  description: RevenueCat REST API v1
+- url: https://api.revenuecat.com/v2
+  description: RevenueCat REST API v2
+tags:
+- name: Entitlements (v1)
+  description: v1 promotional entitlement grant and revoke.
+paths:
+  /subscribers/{app_user_id}/entitlements/{entitlement_identifier}/promotional:
+    post:
+      operationId: grantPromotionalEntitlement
+      tags:
+      - Entitlements (v1)
+      summary: Grant a promotional entitlement
+      description: Grants a promotional (complimentary) entitlement to a subscriber for a fixed duration.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      - name: entitlement_identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                duration:
+                  type: string
+                  example: monthly
+      responses:
+        '200':
+          description: The entitlement was granted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+      security:
+      - bearerAuth: []
+  /subscribers/{app_user_id}/entitlements/{entitlement_identifier}/revoke_promotionals:
+    post:
+      operationId: revokePromotionalEntitlements
+      tags:
+      - Entitlements (v1)
+      summary: Revoke promotional entitlements
+      description: Revokes all promotional grants of an entitlement from a subscriber.
+      servers:
+      - url: https://api.revenuecat.com/v1
+      parameters:
+      - $ref: '#/components/parameters/AppUserId'
+      - name: entitlement_identifier
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The entitlement grants were revoked.
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    Subscriber:
+      type: object
+      properties:
+        original_app_user_id:
+          type: string
+        first_seen:
+          type: string
+          format: date-time
+        last_seen:
+          type: string
+          format: date-time
+        management_url:
+          type: string
+          nullable: true
+        entitlements:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EntitlementInfo'
+        subscriptions:
+          type: object
+          additionalProperties:
+            type: object
+        non_subscriptions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        subscriber_attributes:
+          type: object
+          additionalProperties:
+            type: object
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type: string
+          format: date-time
+          nullable: true
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
+    SubscriberResponse:
+      type: object
+      properties:
+        request_date:
+          type: string
+          format: date-time
+        request_date_ms:
+          type: integer
+          format: int64
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: RevenueCat API key passed as an HTTP Bearer token. v1 accepts public (client) or secret (server) keys; v2 uses dedicated v2 API keys.
