@@ -9,7 +9,20 @@ description: RevenueCat provides in-app subscription and purchase infrastructure
   and subscription analytics. A v1 REST API manages live subscribers and purchases;
   a v2 REST API manages the project catalog (projects, apps, products, entitlements,
   offerings, packages); webhooks stream subscription lifecycle events.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/revenuecat.png
 tags:
 - Subscriptions
 - In-App Purchases
@@ -20,197 +33,6 @@ created: '2026-07-01'
 modified: '2026-07-01'
 specificationVersion: '0.19'
 apis:
-- aid: revenuecat:revenuecat-subscribers-api
-  name: RevenueCat Subscribers API
-  tags:
-  - Subscribers
-  - Customers
-  - App User ID
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v1
-  baseURL: https://api.revenuecat.com/v1
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v1#tag/customers
-    type: Documentation
-  - url: https://www.revenuecat.com/docs/api-v1
-    type: APIReference
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v1 endpoints to get or create a subscriber, delete a subscriber, and
-    read entitlements, subscriptions, and non-subscription purchases for an App User
-    ID.
-- aid: revenuecat:revenuecat-purchases-receipts-api
-  name: RevenueCat Purchases & Receipts API
-  tags:
-  - Purchases
-  - Receipts
-  - Transactions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v1#tag/transactions
-  baseURL: https://api.revenuecat.com/v1
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v1#tag/transactions
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v1 receipt validation (POST /receipts) across App Store, Google Play,
-    Amazon, Stripe, Roku, and Paddle, plus transaction refund, defer, cancel, and
-    extend operations.
-- aid: revenuecat:revenuecat-entitlements-v1-api
-  name: RevenueCat Entitlements API (v1)
-  tags:
-  - Entitlements
-  - Promotional
-  - Grants
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v1#tag/entitlements
-  baseURL: https://api.revenuecat.com/v1
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v1 promotional entitlement operations - grant a complimentary entitlement
-    to a subscriber for a fixed duration and revoke promotional grants.
-- aid: revenuecat:revenuecat-offerings-v1-api
-  name: RevenueCat Offerings API (v1)
-  tags:
-  - Offerings
-  - Paywalls
-  - Targeting
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v1#tag/offerings
-  baseURL: https://api.revenuecat.com/v1
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v1#tag/offerings
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v1 endpoints to fetch the offerings (and packages) resolved for a subscriber
-    - including experiment and targeting evaluation - and to override or clear the
-    current offering for a user.
-- aid: revenuecat:revenuecat-customer-attributes-api
-  name: RevenueCat Customer Attributes API
-  tags:
-  - Attributes
-  - Customer Data
-  - Segmentation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v1#tag/customers/operation/attributes
-  baseURL: https://api.revenuecat.com/v1
-  properties:
-  - url: https://www.revenuecat.com/docs/customers/customer-attributes
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v1 endpoint to set or update custom and reserved subscriber attributes
-    (POST /subscribers/{app_user_id}/attributes) for segmentation, attribution, and
-    messaging.
-- aid: revenuecat:revenuecat-projects-v2-api
-  name: RevenueCat Projects API (v2)
-  tags:
-  - Projects
-  - Configuration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Project
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Project
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 endpoints to list the projects an API key can access - the top-level
-    container for apps, products, entitlements, offerings, and customers.
-- aid: revenuecat:revenuecat-apps-v2-api
-  name: RevenueCat Apps API (v2)
-  tags:
-  - Apps
-  - Store Integrations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/App
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/App
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 CRUD for apps - the per-store integrations (App Store, Play Store,
-    Amazon, Stripe, and more) inside a project.
-- aid: revenuecat:revenuecat-customers-v2-api
-  name: RevenueCat Customers API (v2)
-  tags:
-  - Customers
-  - Subscribers
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Customer
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Customer
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 endpoints to list, create, retrieve, and delete customers within
-    a project, with active entitlements and subscription state.
-- aid: revenuecat:revenuecat-products-v2-api
-  name: RevenueCat Products API (v2)
-  tags:
-  - Products
-  - Catalog
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Product
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Product
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 CRUD for products - the store-mapped subscription and one-time
-    purchase SKUs that back entitlements and packages.
-- aid: revenuecat:revenuecat-entitlements-v2-api
-  name: RevenueCat Entitlements API (v2)
-  tags:
-  - Entitlements
-  - Access Levels
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 CRUD for entitlement definitions - the named access levels that
-    products unlock and that gate premium features.
-- aid: revenuecat:revenuecat-offerings-v2-api
-  name: RevenueCat Offerings API (v2)
-  tags:
-  - Offerings
-  - Paywalls
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Offering
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Offering
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 CRUD for offering definitions - the configurable sets of packages
-    presented on paywalls, including the current offering flag.
-- aid: revenuecat:revenuecat-packages-v2-api
-  name: RevenueCat Packages API (v2)
-  tags:
-  - Packages
-  - Pricing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.revenuecat.com/docs/api-v2#tag/Package
-  baseURL: https://api.revenuecat.com/v2
-  properties:
-  - url: https://www.revenuecat.com/docs/api-v2#tag/Package
-    type: Documentation
-  - url: openapi/revenuecat-openapi.yml
-    type: OpenAPI
-  description: v2 CRUD for packages - the duration-typed purchase options (monthly,
-    annual, lifetime) within an offering that map products to display positions.
 - aid: revenuecat:revenuecat-webhooks
   name: RevenueCat Webhooks
   tags:
@@ -225,9 +47,406 @@ apis:
     type: Documentation
   - url: https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields
     type: Documentation
-  description: Outbound webhooks that POST subscription lifecycle events (INITIAL_PURCHASE,
-    RENEWAL, CANCELLATION, EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to
-    a customer endpoint, secured with an Authorization header.
+  description: >-
+    Outbound webhooks that POST subscription lifecycle events (INITIAL_PURCHASE, RENEWAL, CANCELLATION,
+    EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to a customer endpoint, secured with an Authorization
+    header.
+- aid: revenuecat:revenuecat-apps-api
+  name: RevenueCat Apps API
+  description: v2 app (platform integration) management.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Apps
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-apps-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-customers-api
+  name: RevenueCat Customers API
+  description: v2 customer management.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-customers-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-entitlements-v1-api
+  name: RevenueCat Entitlements (v1) API
+  description: v1 promotional entitlement grant and revoke.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Entitlements (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-entitlements-v1-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-entitlements-v2-api
+  name: RevenueCat Entitlements (v2) API
+  description: v2 entitlement definitions.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Entitlements (v2)
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-entitlements-v2-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-offerings-v1-api
+  name: RevenueCat Offerings (v1) API
+  description: v1 offering fetch and override.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Offerings (v1)
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-offerings-v1-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-offerings-v2-api
+  name: RevenueCat Offerings (v2) API
+  description: v2 offering definitions.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Offerings (v2)
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-offerings-v2-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-packages-api
+  name: RevenueCat Packages API
+  description: v2 package definitions within an offering.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-packages-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-products-api
+  name: RevenueCat Products API
+  description: v2 product catalog management.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-projects-api
+  name: RevenueCat Projects API
+  description: v2 project management.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-projects-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-purchases-api
+  name: RevenueCat Purchases API
+  description: v1 receipt validation and transaction lifecycle operations.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Purchases
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-purchases-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
+- aid: revenuecat:revenuecat-subscribers-api
+  name: RevenueCat Subscribers API
+  description: v1 customer (app user) records, attributes, and state.
+  humanURL: https://www.revenuecat.com/docs/api-v1
+  baseURL: https://api.revenuecat.com/v1
+  tags:
+  - Subscribers
+  properties:
+  - type: OpenAPI
+    url: openapi/revenuecat-subscribers-api-openapi.yml
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/customers
+  - type: APIReference
+    url: https://www.revenuecat.com/docs/api-v1
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/transactions
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/entitlements
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v1#tag/offerings
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/customers/customer-attributes
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Project
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/App
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Customer
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Product
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Entitlement
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Offering
+  - type: Documentation
+    url: https://www.revenuecat.com/docs/api-v2#tag/Package
 common:
 - type: AgenticAccess
   url: agentic-access/revenuecat-agentic-access.yml
