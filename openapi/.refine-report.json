@@ -1,0 +1,34 @@
+{
+  "provider": "revenuecat",
+  "sources": [
+    "revenuecat-apps-api-openapi.yml",
+    "revenuecat-customers-api-openapi.yml",
+    "revenuecat-entitlements-v1-api-openapi.yml",
+    "revenuecat-entitlements-v2-api-openapi.yml",
+    "revenuecat-offerings-v1-api-openapi.yml",
+    "revenuecat-offerings-v2-api-openapi.yml",
+    "revenuecat-packages-api-openapi.yml",
+    "revenuecat-products-api-openapi.yml",
+    "revenuecat-projects-api-openapi.yml",
+    "revenuecat-purchases-api-openapi.yml",
+    "revenuecat-subscribers-api-openapi.yml"
+  ],
+  "outputs": [
+    "revenuecat-apps-api-openapi.yml",
+    "revenuecat-customers-api-openapi.yml",
+    "revenuecat-entitlements-v1-api-openapi.yml",
+    "revenuecat-entitlements-v2-api-openapi.yml",
+    "revenuecat-offerings-v1-api-openapi.yml",
+    "revenuecat-offerings-v2-api-openapi.yml",
+    "revenuecat-packages-api-openapi.yml",
+    "revenuecat-products-api-openapi.yml",
+    "revenuecat-projects-api-openapi.yml",
+    "revenuecat-purchases-api-openapi.yml",
+    "revenuecat-subscribers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

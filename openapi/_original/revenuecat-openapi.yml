@@ -1,0 +1,1179 @@
+openapi: 3.0.1
+info:
+  title: RevenueCat REST API
+  description: >-
+    Representative OpenAPI description of RevenueCat's public REST surface. It
+    covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers,
+    receipts/purchases, entitlements, offerings, and subscriber attributes, and
+    the v2 REST API (https://api.revenuecat.com/v2) for projects, apps,
+    customers, products, entitlements, offerings, and packages. Both APIs use
+    HTTP Bearer authentication with a RevenueCat API key (v1 public or secret
+    keys; v2 API keys). RevenueCat also delivers subscription lifecycle events
+    via outbound webhooks (documented separately).
+  termsOfService: https://www.revenuecat.com/terms/
+  contact:
+    name: RevenueCat Support
+    url: https://www.revenuecat.com/docs
+  version: '1.0'
+servers:
+  - url: https://api.revenuecat.com/v1
+    description: RevenueCat REST API v1
+  - url: https://api.revenuecat.com/v2
+    description: RevenueCat REST API v2
+tags:
+  - name: Subscribers
+    description: v1 customer (app user) records, attributes, and state.
+  - name: Purchases
+    description: v1 receipt validation and transaction lifecycle operations.
+  - name: Entitlements (v1)
+    description: v1 promotional entitlement grant and revoke.
+  - name: Offerings (v1)
+    description: v1 offering fetch and override.
+  - name: Projects
+    description: v2 project management.
+  - name: Apps
+    description: v2 app (platform integration) management.
+  - name: Customers
+    description: v2 customer management.
+  - name: Products
+    description: v2 product catalog management.
+  - name: Entitlements (v2)
+    description: v2 entitlement definitions.
+  - name: Offerings (v2)
+    description: v2 offering definitions.
+  - name: Packages
+    description: v2 package definitions within an offering.
+paths:
+  /subscribers/{app_user_id}:
+    get:
+      operationId: getOrCreateSubscriber
+      tags:
+        - Subscribers
+      summary: Get or create a subscriber
+      description: >-
+        Returns the latest subscriber (customer) information for the given
+        app_user_id, creating the record if it does not yet exist. Includes
+        entitlements, subscriptions, and non-subscription purchases.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - $ref: '#/components/parameters/PlatformHeader'
+      responses:
+        '200':
+          description: The subscriber object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deleteSubscriber
+      tags:
+        - Subscribers
+      summary: Delete a subscriber
+      description: Permanently deletes a subscriber and all associated data.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+      responses:
+        '200':
+          description: The subscriber was deleted.
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/attributes:
+    post:
+      operationId: updateSubscriberAttributes
+      tags:
+        - Subscribers
+      summary: Update subscriber attributes
+      description: >-
+        Sets or updates one or more custom or reserved subscriber attributes for
+        the given app_user_id.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriberAttributesRequest'
+      responses:
+        '200':
+          description: Attributes updated.
+      security:
+        - bearerAuth: []
+  /receipts:
+    post:
+      operationId: createReceipt
+      tags:
+        - Purchases
+      summary: Create a purchase (validate a receipt)
+      description: >-
+        Records a purchase by validating a store receipt or token from App
+        Store, Google Play, Amazon, Stripe, Roku, or Paddle and attaches it to
+        the given app user.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/PlatformHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReceiptRequest'
+      responses:
+        '200':
+          description: The updated subscriber object after the receipt was processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+        '201':
+          description: A new receipt was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/transactions/{store_transaction_identifier}/refund:
+    post:
+      operationId: refundTransaction
+      tags:
+        - Purchases
+      summary: Refund a transaction
+      description: Issues a refund for a Google Play transaction.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - name: store_transaction_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The transaction was refunded.
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/subscriptions/{product_identifier}/defer:
+    post:
+      operationId: deferSubscription
+      tags:
+        - Purchases
+      summary: Defer a Google subscription
+      description: Defers the next renewal date of an active Google Play subscription.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - name: product_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expiry_time_ms:
+                  type: integer
+                  format: int64
+      responses:
+        '200':
+          description: The subscription renewal was deferred.
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/entitlements/{entitlement_identifier}/promotional:
+    post:
+      operationId: grantPromotionalEntitlement
+      tags:
+        - Entitlements (v1)
+      summary: Grant a promotional entitlement
+      description: >-
+        Grants a promotional (complimentary) entitlement to a subscriber for a
+        fixed duration.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - name: entitlement_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                duration:
+                  type: string
+                  example: monthly
+      responses:
+        '200':
+          description: The entitlement was granted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriberResponse'
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/entitlements/{entitlement_identifier}/revoke_promotionals:
+    post:
+      operationId: revokePromotionalEntitlements
+      tags:
+        - Entitlements (v1)
+      summary: Revoke promotional entitlements
+      description: Revokes all promotional grants of an entitlement from a subscriber.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - name: entitlement_identifier
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The entitlement grants were revoked.
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/offerings:
+    get:
+      operationId: getOfferings
+      tags:
+        - Offerings (v1)
+      summary: Get offerings
+      description: >-
+        Returns the offerings configured for the app, evaluated for the given
+        subscriber (including experiment / targeting resolution).
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - $ref: '#/components/parameters/PlatformHeader'
+      responses:
+        '200':
+          description: The offerings object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingsResponse'
+      security:
+        - bearerAuth: []
+  /subscribers/{app_user_id}/offerings/{offering_uuid}/override:
+    post:
+      operationId: overrideOffering
+      tags:
+        - Offerings (v1)
+      summary: Override the current offering
+      description: Overrides the current offering shown to a specific subscriber.
+      servers:
+        - url: https://api.revenuecat.com/v1
+      parameters:
+        - $ref: '#/components/parameters/AppUserId'
+        - name: offering_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The override was applied.
+      security:
+        - bearerAuth: []
+  /projects:
+    get:
+      operationId: listProjects
+      tags:
+        - Projects
+      summary: List projects
+      description: Lists all projects the API key has access to.
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/apps:
+    get:
+      operationId: listApps
+      tags:
+        - Apps
+      summary: List apps
+      description: Lists the apps (platform integrations) within a project.
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of apps.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppList'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createApp
+      tags:
+        - Apps
+      summary: Create an app
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/App'
+      responses:
+        '201':
+          description: The created app.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/apps/{app_id}:
+    get:
+      operationId: getApp
+      tags:
+        - Apps
+      summary: Get an app
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: app_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The app.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deleteApp
+      tags:
+        - Apps
+      summary: Delete an app
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: app_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The app was deleted.
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/customers:
+    get:
+      operationId: listCustomers
+      tags:
+        - Customers
+      summary: List customers
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createCustomer
+      tags:
+        - Customers
+      summary: Create a customer
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/customers/{customer_id}:
+    get:
+      operationId: getCustomer
+      tags:
+        - Customers
+      summary: Get a customer
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: The customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deleteCustomer
+      tags:
+        - Customers
+      summary: Delete a customer
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: The customer was deleted.
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/products:
+    get:
+      operationId: listProducts
+      tags:
+        - Products
+      summary: List products
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createProduct
+      tags:
+        - Products
+      summary: Create a product
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: The created product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/products/{product_id}:
+    get:
+      operationId: getProduct
+      tags:
+        - Products
+      summary: Get a product
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deleteProduct
+      tags:
+        - Products
+      summary: Delete a product
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The product was deleted.
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/entitlements:
+    get:
+      operationId: listEntitlements
+      tags:
+        - Entitlements (v2)
+      summary: List entitlements
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of entitlements.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntitlementList'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createEntitlement
+      tags:
+        - Entitlements (v2)
+      summary: Create an entitlement
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entitlement'
+      responses:
+        '201':
+          description: The created entitlement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/entitlements/{entitlement_id}:
+    get:
+      operationId: getEntitlement
+      tags:
+        - Entitlements (v2)
+      summary: Get an entitlement
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: entitlement_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The entitlement.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entitlement'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deleteEntitlement
+      tags:
+        - Entitlements (v2)
+      summary: Delete an entitlement
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - name: entitlement_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The entitlement was deleted.
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/offerings:
+    get:
+      operationId: listOfferingsV2
+      tags:
+        - Offerings (v2)
+      summary: List offerings
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of offerings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingListV2'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createOfferingV2
+      tags:
+        - Offerings (v2)
+      summary: Create an offering
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfferingV2'
+      responses:
+        '201':
+          description: The created offering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingV2'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/offerings/{offering_id}:
+    get:
+      operationId: getOfferingV2
+      tags:
+        - Offerings (v2)
+      summary: Get an offering
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/OfferingId'
+      responses:
+        '200':
+          description: The offering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfferingV2'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/offerings/{offering_id}/packages:
+    get:
+      operationId: listPackages
+      tags:
+        - Packages
+      summary: List packages
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/OfferingId'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of packages.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageList'
+      security:
+        - bearerAuth: []
+    post:
+      operationId: createPackage
+      tags:
+        - Packages
+      summary: Create a package
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/OfferingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Package'
+      responses:
+        '201':
+          description: The created package.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+      security:
+        - bearerAuth: []
+  /projects/{project_id}/offerings/{offering_id}/packages/{package_id}:
+    get:
+      operationId: getPackage
+      tags:
+        - Packages
+      summary: Get a package
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/OfferingId'
+        - name: package_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The package.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+      security:
+        - bearerAuth: []
+    delete:
+      operationId: deletePackage
+      tags:
+        - Packages
+      summary: Delete a package
+      servers:
+        - url: https://api.revenuecat.com/v2
+      parameters:
+        - $ref: '#/components/parameters/ProjectId'
+        - $ref: '#/components/parameters/OfferingId'
+        - name: package_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The package was deleted.
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        RevenueCat API key passed as an HTTP Bearer token. v1 accepts public
+        (client) or secret (server) keys; v2 uses dedicated v2 API keys.
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The customer (App User ID) identifier.
+      schema:
+        type: string
+    OfferingId:
+      name: offering_id
+      in: path
+      required: true
+      description: The offering identifier.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+  schemas:
+    SubscriberResponse:
+      type: object
+      properties:
+        request_date:
+          type: string
+          format: date-time
+        request_date_ms:
+          type: integer
+          format: int64
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
+    Subscriber:
+      type: object
+      properties:
+        original_app_user_id:
+          type: string
+        first_seen:
+          type: string
+          format: date-time
+        last_seen:
+          type: string
+          format: date-time
+        management_url:
+          type: string
+          nullable: true
+        entitlements:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EntitlementInfo'
+        subscriptions:
+          type: object
+          additionalProperties:
+            type: object
+        non_subscriptions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        subscriber_attributes:
+          type: object
+          additionalProperties:
+            type: object
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type: string
+          format: date-time
+          nullable: true
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
+    SubscriberAttributesRequest:
+      type: object
+      properties:
+        attributes:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              value:
+                type: string
+              updated_at_ms:
+                type: integer
+                format: int64
+    ReceiptRequest:
+      type: object
+      required:
+        - app_user_id
+        - fetch_token
+      properties:
+        app_user_id:
+          type: string
+        fetch_token:
+          type: string
+          description: The store receipt or purchase token to validate.
+        product_id:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        is_restore:
+          type: boolean
+        presented_offering_identifier:
+          type: string
+    OfferingsResponse:
+      type: object
+      properties:
+        current_offering_id:
+          type: string
+          nullable: true
+        offerings:
+          type: array
+          items:
+            type: object
+            properties:
+              identifier:
+                type: string
+              description:
+                type: string
+              packages:
+                type: array
+                items:
+                  type: object
+    ProjectList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: project
+        name:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+    AppList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/App'
+    App:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: app
+        name:
+          type: string
+        type:
+          type: string
+          description: Store type (app_store, play_store, amazon, stripe, etc.).
+        created_at:
+          type: integer
+          format: int64
+    CustomerList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Customer'
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The App User ID.
+        object:
+          type: string
+          example: customer
+        project_id:
+          type: string
+        first_seen_at:
+          type: integer
+          format: int64
+        last_seen_at:
+          type: integer
+          format: int64
+        active_entitlements:
+          type: object
+    ProductList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: product
+        store_identifier:
+          type: string
+        type:
+          type: string
+          description: subscription or one_time.
+        app_id:
+          type: string
+        display_name:
+          type: string
+    EntitlementList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Entitlement'
+    Entitlement:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: entitlement
+        project_id:
+          type: string
+        lookup_key:
+          type: string
+        display_name:
+          type: string
+        created_at:
+          type: integer
+          format: int64
+    OfferingListV2:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/OfferingV2'
+    OfferingV2:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: offering
+        project_id:
+          type: string
+        lookup_key:
+          type: string
+        display_name:
+          type: string
+        is_current:
+          type: boolean
+        created_at:
+          type: integer
+          format: int64
+    PackageList:
+      allOf:
+        - $ref: '#/components/schemas/ListEnvelope'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Package'
+    Package:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          example: package
+        lookup_key:
+          type: string
+        display_name:
+          type: string
+        position:
+          type: integer
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type: string
+          nullable: true
