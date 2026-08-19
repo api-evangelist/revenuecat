@@ -1,0 +1,280 @@
+{
+  "item": [
+    {
+      "id": "3fc195f5-fc25-4c99-bae7-7dbdda21ca76",
+      "name": "Offerings (v1)",
+      "description": {
+        "content": "v1 offering fetch and override.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1616095b-a97c-422a-b65a-623129c94ffd",
+          "name": "Get offerings",
+          "request": {
+            "name": "Get offerings",
+            "description": {
+              "content": "Returns the offerings configured for the app, evaluated for the given subscriber (including experiment / targeting resolution).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "offerings"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The platform the request originates from (ios, android, etc.).",
+                "key": "X-Platform",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e4a45500-8101-4c17-b3b4-903aafc4c148",
+              "name": "The offerings object.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "offerings"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The platform the request originates from (ios, android, etc.).",
+                    "key": "X-Platform",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_offering_id\": \"string\",\n  \"offerings\": [\n    {\n      \"identifier\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"identifier\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1da54e95-9d7d-4793-9626-e92e94b9bc26",
+          "name": "Override the current offering",
+          "request": {
+            "name": "Override the current offering",
+            "description": {
+              "content": "Overrides the current offering shown to a specific subscriber.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "offerings",
+                ":offering_uuid",
+                "override"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "offering_uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3eb16c2f-4eb5-4f04-b4d6-477671f82204",
+              "name": "The override was applied.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "offerings",
+                    ":offering_uuid",
+                    "override"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "offering_uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "773359e1-2552-4b92-a592-3cdba55db9da",
+    "name": "RevenueCat REST Apps Offerings (v1) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}

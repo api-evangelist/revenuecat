@@ -1,0 +1,487 @@
+{
+  "item": [
+    {
+      "id": "1be3cee9-13c4-4912-b2fe-0db3537b73ad",
+      "name": "Purchases",
+      "description": {
+        "content": "v1 receipt validation and transaction lifecycle operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3b7a1a01-bed4-40c0-8ab3-592c43830bf7",
+          "name": "Create a purchase (validate a receipt)",
+          "request": {
+            "name": "Create a purchase (validate a receipt)",
+            "description": {
+              "content": "Records a purchase by validating a store receipt or token from App Store, Google Play, Amazon, Stripe, Roku, or Paddle and attaches it to the given app user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "receipts"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The platform the request originates from (ios, android, etc.).",
+                "key": "X-Platform",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"app_user_id\": \"<string>\",\n  \"fetch_token\": \"<string>\",\n  \"product_id\": \"<string>\",\n  \"price\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"is_restore\": \"<boolean>\",\n  \"presented_offering_identifier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1167231-e345-49c3-90a5-539265ddf923",
+              "name": "The updated subscriber object after the receipt was processed.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "receipts"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The platform the request originates from (ios, android, etc.).",
+                    "key": "X-Platform",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_user_id\": \"<string>\",\n  \"fetch_token\": \"<string>\",\n  \"product_id\": \"<string>\",\n  \"price\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"is_restore\": \"<boolean>\",\n  \"presented_offering_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_date\": \"1984-06-18T19:03:08.809Z\",\n  \"request_date_ms\": 6178,\n  \"subscriber\": {\n    \"original_app_user_id\": \"string\",\n    \"first_seen\": \"1978-07-10T14:58:27.653Z\",\n    \"last_seen\": \"1966-10-27T13:21:36.318Z\",\n    \"management_url\": \"string\",\n    \"entitlements\": {\n      \"key_0\": {\n        \"expires_date\": \"2022-06-23T00:23:03.644Z\",\n        \"purchase_date\": \"1970-12-12T09:38:21.262Z\",\n        \"product_identifier\": \"string\"\n      }\n    },\n    \"subscriptions\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"non_subscriptions\": {},\n    \"subscriber_attributes\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c450c461-756c-4c82-b33c-c0658c7dba66",
+              "name": "A new receipt was created.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "receipts"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The platform the request originates from (ios, android, etc.).",
+                    "key": "X-Platform",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"app_user_id\": \"<string>\",\n  \"fetch_token\": \"<string>\",\n  \"product_id\": \"<string>\",\n  \"price\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"is_restore\": \"<boolean>\",\n  \"presented_offering_identifier\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_date\": \"2022-05-18T09:13:05.624Z\",\n  \"request_date_ms\": 9211,\n  \"subscriber\": {\n    \"original_app_user_id\": \"string\",\n    \"first_seen\": \"1977-06-11T22:33:10.174Z\",\n    \"last_seen\": \"1966-02-24T16:13:47.990Z\",\n    \"management_url\": \"string\",\n    \"entitlements\": {\n      \"key_0\": {\n        \"expires_date\": \"2020-07-20T11:03:11.169Z\",\n        \"purchase_date\": \"2020-01-18T21:09:10.834Z\",\n        \"product_identifier\": \"string\"\n      }\n    },\n    \"subscriptions\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {}\n    },\n    \"non_subscriptions\": {},\n    \"subscriber_attributes\": {\n      \"key_0\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04b7f97c-edd8-4f2a-a428-fb0eab0af261",
+          "name": "Refund a transaction",
+          "request": {
+            "name": "Refund a transaction",
+            "description": {
+              "content": "Issues a refund for a Google Play transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "transactions",
+                ":store_transaction_identifier",
+                "refund"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "store_transaction_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f6c1260-1483-401d-8c46-076132ea49e2",
+              "name": "The transaction was refunded.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "transactions",
+                    ":store_transaction_identifier",
+                    "refund"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "store_transaction_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46812263-44d0-42d4-b19d-f2ae85eaf2b0",
+          "name": "Defer a Google subscription",
+          "request": {
+            "name": "Defer a Google subscription",
+            "description": {
+              "content": "Defers the next renewal date of an active Google Play subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "subscriptions",
+                ":product_identifier",
+                "defer"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expiry_time_ms\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9e99a18-120b-4b2f-a95b-3376dbdc1bf1",
+              "name": "The subscription renewal was deferred.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "subscriptions",
+                    ":product_identifier",
+                    "defer"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expiry_time_ms\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "14294ea8-c01b-4e40-91a6-deda69f00972",
+    "name": "RevenueCat REST Apps Purchases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}

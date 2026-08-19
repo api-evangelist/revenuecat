@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST Apps Offerings (v1) API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offerings (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get offerings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/offerings",
+            "headers": [
+              {
+                "name": "X-Platform",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the offerings configured for the app, evaluated for the given subscriber (including experiment / targeting resolution)."
+        },
+        {
+          "info": {
+            "name": "Override the current offering",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/offerings/:offering_uuid/override",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              },
+              {
+                "name": "offering_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Overrides the current offering shown to a specific subscriber."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

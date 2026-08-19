@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST Apps Packages API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/offerings/:offering_id/packages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path",
+                "description": "The offering identifier."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination; the id of the last object on the previous page."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List packages"
+        },
+        {
+          "info": {
+            "name": "Create a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/offerings/:offering_id/packages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path",
+                "description": "The offering identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a package"
+        },
+        {
+          "info": {
+            "name": "Get a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/offerings/:offering_id/packages/:package_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path",
+                "description": "The offering identifier."
+              },
+              {
+                "name": "package_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a package"
+        },
+        {
+          "info": {
+            "name": "Delete a package",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/offerings/:offering_id/packages/:package_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "offering_id",
+                "value": "",
+                "type": "path",
+                "description": "The offering identifier."
+              },
+              {
+                "name": "package_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a package"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

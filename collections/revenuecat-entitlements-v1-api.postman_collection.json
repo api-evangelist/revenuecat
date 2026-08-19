@@ -1,0 +1,307 @@
+{
+  "item": [
+    {
+      "id": "d085804f-4395-4ebc-bedd-31094feeed8e",
+      "name": "Entitlements (v1)",
+      "description": {
+        "content": "v1 promotional entitlement grant and revoke.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b7dee28-f95e-4195-a6b4-a7df695daa25",
+          "name": "Grant a promotional entitlement",
+          "request": {
+            "name": "Grant a promotional entitlement",
+            "description": {
+              "content": "Grants a promotional (complimentary) entitlement to a subscriber for a fixed duration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "entitlements",
+                ":entitlement_identifier",
+                "promotional"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlement_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duration\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "40b0458f-6f2b-4fcc-bc04-76e1497e4139",
+              "name": "The entitlement was granted.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "entitlements",
+                    ":entitlement_identifier",
+                    "promotional"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlement_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"duration\": \"monthly\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_date\": \"1993-09-04T16:04:34.123Z\",\n  \"request_date_ms\": 2729,\n  \"subscriber\": {\n    \"original_app_user_id\": \"string\",\n    \"first_seen\": \"1988-12-27T20:35:44.529Z\",\n    \"last_seen\": \"1968-02-03T23:32:43.184Z\",\n    \"management_url\": \"string\",\n    \"entitlements\": {\n      \"key_0\": {\n        \"expires_date\": \"2009-12-14T16:02:29.813Z\",\n        \"purchase_date\": \"2010-09-28T17:06:18.131Z\",\n        \"product_identifier\": \"string\"\n      },\n      \"key_1\": {\n        \"expires_date\": \"1975-01-14T09:13:57.771Z\",\n        \"purchase_date\": \"2000-08-04T00:17:02.254Z\",\n        \"product_identifier\": \"string\"\n      }\n    },\n    \"subscriptions\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    },\n    \"non_subscriptions\": {},\n    \"subscriber_attributes\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {},\n      \"key_3\": {},\n      \"key_4\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "529ece9b-a6ce-4e7d-a8e0-a5696bf5e761",
+          "name": "Revoke promotional entitlements",
+          "request": {
+            "name": "Revoke promotional entitlements",
+            "description": {
+              "content": "Revokes all promotional grants of an entitlement from a subscriber.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "entitlements",
+                ":entitlement_identifier",
+                "revoke_promotionals"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entitlement_identifier",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c5c58f4a-bace-4c85-95e2-3f8a78498b91",
+              "name": "The entitlement grants were revoked.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "entitlements",
+                    ":entitlement_identifier",
+                    "revoke_promotionals"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entitlement_identifier",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e19999de-61a5-4c84-bed5-30354e700097",
+    "name": "RevenueCat REST Apps Entitlements (v1) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}

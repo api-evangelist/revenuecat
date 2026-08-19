@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST Apps Entitlements (v2) API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entitlements (v2)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/entitlements",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination; the id of the last object on the previous page."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List entitlements"
+        },
+        {
+          "info": {
+            "name": "Create an entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/entitlements",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an entitlement"
+        },
+        {
+          "info": {
+            "name": "Get an entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/entitlements/:entitlement_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "entitlement_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get an entitlement"
+        },
+        {
+          "info": {
+            "name": "Delete an entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v1/projects/:project_id/entitlements/:entitlement_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "The RevenueCat project identifier."
+              },
+              {
+                "name": "entitlement_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete an entitlement"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

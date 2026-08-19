@@ -1,0 +1,541 @@
+{
+  "item": [
+    {
+      "id": "9de4cca9-a0aa-4ae2-a31a-3154cf448ce3",
+      "name": "Products",
+      "description": {
+        "content": "v2 product catalog management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f34824e1-f6b0-45d4-9695-082d8d5e4605",
+          "name": "List products",
+          "request": {
+            "name": "List products",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "projects",
+                ":project_id",
+                "products"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "Cursor for pagination; the id of the last object on the previous page."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of items to return per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) The RevenueCat project identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a968c4d-c0e0-431c-95bc-aeffddcb62ca",
+              "name": "A paginated list of products.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "projects",
+                    ":project_id",
+                    "products"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) The RevenueCat project identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"url\": \"string\",\n  \"next_page\": \"string\",\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"product\",\n      \"store_identifier\": \"string\",\n      \"type\": \"string\",\n      \"app_id\": \"string\",\n      \"display_name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"product\",\n      \"store_identifier\": \"string\",\n      \"type\": \"string\",\n      \"app_id\": \"string\",\n      \"display_name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ed45502-47ea-4d31-805b-9f0630e40cf4",
+          "name": "Create a product",
+          "request": {
+            "name": "Create a product",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "projects",
+                ":project_id",
+                "products"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) The RevenueCat project identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"store_identifier\": \"<string>\",\n  \"type\": \"<string>\",\n  \"app_id\": \"<string>\",\n  \"display_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "390f53e2-2374-4b82-ba58-6573f1dc9da6",
+              "name": "The created product.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "projects",
+                    ":project_id",
+                    "products"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) The RevenueCat project identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"object\": \"product\",\n  \"store_identifier\": \"<string>\",\n  \"type\": \"<string>\",\n  \"app_id\": \"<string>\",\n  \"display_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"product\",\n  \"store_identifier\": \"<string>\",\n  \"type\": \"<string>\",\n  \"app_id\": \"<string>\",\n  \"display_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd234a51-99e1-48a5-87cb-309f60244338",
+          "name": "Get a product",
+          "request": {
+            "name": "Get a product",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "projects",
+                ":project_id",
+                "products",
+                ":product_id"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) The RevenueCat project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c1c2cc2f-c34a-47e9-b7df-e7b9947c8d76",
+              "name": "The product.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "projects",
+                    ":project_id",
+                    "products",
+                    ":product_id"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) The RevenueCat project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"product\",\n  \"store_identifier\": \"<string>\",\n  \"type\": \"<string>\",\n  \"app_id\": \"<string>\",\n  \"display_name\": \"<string>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ad95e79-a1f8-445a-ab7f-5cad3188b38b",
+          "name": "Delete a product",
+          "request": {
+            "name": "Delete a product",
+            "description": {},
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "projects",
+                ":project_id",
+                "products",
+                ":product_id"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) The RevenueCat project identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e5b13d8a-d9b2-49f9-8828-98cb2a8b0f98",
+              "name": "The product was deleted.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "projects",
+                    ":project_id",
+                    "products",
+                    ":product_id"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) The RevenueCat project identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "80e636c1-5175-4aa7-af85-cb66e6bdc19d",
+    "name": "RevenueCat REST Apps Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}

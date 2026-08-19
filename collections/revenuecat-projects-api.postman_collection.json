@@ -1,0 +1,148 @@
+{
+  "item": [
+    {
+      "id": "1ba42c98-7128-4ec7-aa15-6d99c6d6600a",
+      "name": "Projects",
+      "description": {
+        "content": "v2 project management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ea3f76e-e8b3-43ee-a1ad-13af6533c99c",
+          "name": "List projects",
+          "request": {
+            "name": "List projects",
+            "description": {
+              "content": "Lists all projects the API key has access to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v2",
+                "projects"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "starting_after",
+                  "value": "<string>",
+                  "description": "Cursor for pagination; the id of the last object on the previous page."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Maximum number of items to return per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1090a0f3-7382-4c16-b607-b004e023fe08",
+              "name": "A paginated list of projects.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v2",
+                    "projects"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [
+                    {
+                      "key": "starting_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"object\": \"list\",\n  \"url\": \"string\",\n  \"next_page\": \"string\",\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"project\",\n      \"name\": \"string\",\n      \"created_at\": 5905\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"project\",\n      \"name\": \"string\",\n      \"created_at\": 419\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b484086c-837f-49ba-a191-1bb78a0380e1",
+    "name": "RevenueCat REST Apps Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}

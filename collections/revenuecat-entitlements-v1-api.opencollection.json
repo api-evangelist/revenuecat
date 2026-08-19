@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST Apps Entitlements (v1) API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entitlements (v1)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Grant a promotional entitlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/entitlements/:entitlement_identifier/promotional",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              },
+              {
+                "name": "entitlement_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Grants a promotional (complimentary) entitlement to a subscriber for a fixed duration."
+        },
+        {
+          "info": {
+            "name": "Revoke promotional entitlements",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/entitlements/:entitlement_identifier/revoke_promotionals",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              },
+              {
+                "name": "entitlement_identifier",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Revokes all promotional grants of an entitlement from a subscriber."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

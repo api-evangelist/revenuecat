@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RevenueCat REST Apps Subscribers API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscribers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get or create a subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id",
+            "headers": [
+              {
+                "name": "X-Platform",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the latest subscriber (customer) information for the given app_user_id, creating the record if it does not yet exist. Includes entitlements, subscriptions, and non-subscription purchases."
+        },
+        {
+          "info": {
+            "name": "Delete a subscriber",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Permanently deletes a subscriber and all associated data."
+        },
+        {
+          "info": {
+            "name": "Update subscriber attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.revenuecat.com/v1/subscribers/:app_user_id/attributes",
+            "params": [
+              {
+                "name": "app_user_id",
+                "value": "",
+                "type": "path",
+                "description": "The App User ID that identifies the customer."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sets or updates one or more custom or reserved subscriber attributes for the given app_user_id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,385 @@
+{
+  "item": [
+    {
+      "id": "71a33055-304b-4632-973b-d3e5ea9a2aad",
+      "name": "Subscribers",
+      "description": {
+        "content": "v1 customer (app user) records, attributes, and state.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ce2be21-2503-44dd-9a9b-dccb175767c1",
+          "name": "Get or create a subscriber",
+          "request": {
+            "name": "Get or create a subscriber",
+            "description": {
+              "content": "Returns the latest subscriber (customer) information for the given app_user_id, creating the record if it does not yet exist. Includes entitlements, subscriptions, and non-subscription purchases.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "The platform the request originates from (ios, android, etc.).",
+                "key": "X-Platform",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "878c4d47-d2ee-4b7e-a0d0-793a749d23ea",
+              "name": "The subscriber object.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The platform the request originates from (ios, android, etc.).",
+                    "key": "X-Platform",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request_date\": \"1948-06-26T11:10:09.664Z\",\n  \"request_date_ms\": 5033,\n  \"subscriber\": {\n    \"original_app_user_id\": \"string\",\n    \"first_seen\": \"1957-09-01T19:39:50.360Z\",\n    \"last_seen\": \"2013-04-22T12:23:37.524Z\",\n    \"management_url\": \"string\",\n    \"entitlements\": {\n      \"key_0\": {\n        \"expires_date\": \"1974-05-10T19:34:33.565Z\",\n        \"purchase_date\": \"1951-09-07T23:58:28.338Z\",\n        \"product_identifier\": \"string\"\n      },\n      \"key_1\": {\n        \"expires_date\": \"1963-01-20T23:10:11.806Z\",\n        \"purchase_date\": \"2008-09-24T00:46:45.763Z\",\n        \"product_identifier\": \"string\"\n      }\n    },\n    \"subscriptions\": {\n      \"key_0\": {},\n      \"key_1\": {},\n      \"key_2\": {}\n    },\n    \"non_subscriptions\": {},\n    \"subscriber_attributes\": {\n      \"key_0\": {},\n      \"key_1\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3684f9c9-e74c-4f30-836e-9d48131c3a9a",
+          "name": "Delete a subscriber",
+          "request": {
+            "name": "Delete a subscriber",
+            "description": {
+              "content": "Permanently deletes a subscriber and all associated data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "968af1e2-9f58-4d36-b153-e4b68821126b",
+              "name": "The subscriber was deleted.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4c8bef2-a2b2-467c-a9b8-98806794817c",
+          "name": "Update subscriber attributes",
+          "request": {
+            "name": "Update subscriber attributes",
+            "description": {
+              "content": "Sets or updates one or more custom or reserved subscriber attributes for the given app_user_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "v1",
+                "subscribers",
+                ":app_user_id",
+                "attributes"
+              ],
+              "host": [
+                "api",
+                "revenuecat",
+                "com"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "app_user_id",
+                  "description": "(Required) The App User ID that identifies the customer."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attributes\": {\n    \"key_0\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    },\n    \"key_1\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    },\n    \"key_2\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    },\n    \"key_3\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97ae38a7-2a4d-417b-a03a-e9bf2d9cf726",
+              "name": "Attributes updated.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "v1",
+                    "subscribers",
+                    ":app_user_id",
+                    "attributes"
+                  ],
+                  "host": [
+                    "api",
+                    "revenuecat",
+                    "com"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "app_user_id",
+                      "description": "(Required) The App User ID that identifies the customer."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributes\": {\n    \"key_0\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    },\n    \"key_1\": {\n      \"value\": \"<string>\",\n      \"updated_at_ms\": \"<long>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.revenuecat.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7e84f814-33e5-4143-8430-810085d1de6b",
+    "name": "RevenueCat REST Apps Subscribers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).\n\nContact Support:\n Name: RevenueCat Support",
+      "type": "text/plain"
+    }
+  }
+}
