@@ -24,6 +24,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/revenuecat.png
 tags:
+- Subscription
+- In-App Purchases
+- Billing
+- Mobile
+- Entitlements
+tags_raw:
 - Subscriptions
 - In-App Purchases
 - Billing
@@ -36,6 +42,10 @@ apis:
 - aid: revenuecat:revenuecat-webhooks
   name: RevenueCat Webhooks
   tags:
+  - Webhook
+  - Event
+  - Lifecycle
+  tags_raw:
   - Webhooks
   - Events
   - Lifecycle
@@ -57,6 +67,8 @@ apis:
   humanURL: https://www.revenuecat.com/docs/api-v1
   baseURL: https://api.revenuecat.com/v1
   tags:
+  - Application
+  tags_raw:
   - Apps
   properties:
   - type: OpenAPI
@@ -309,6 +321,8 @@ apis:
   humanURL: https://www.revenuecat.com/docs/api-v1
   baseURL: https://api.revenuecat.com/v1
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -345,6 +359,8 @@ apis:
   humanURL: https://www.revenuecat.com/docs/api-v1
   baseURL: https://api.revenuecat.com/v1
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
