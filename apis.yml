@@ -9,6 +9,18 @@ description: RevenueCat provides in-app subscription and purchase infrastructure
   and subscription analytics. A v1 REST API manages live subscribers and purchases;
   a v2 REST API manages the project catalog (projects, apps, products, entitlements,
   offerings, packages); webhooks stream subscription lifecycle events.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
