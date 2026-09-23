@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Entitlements (v1) API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Entitlements (v1) API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -74,6 +74,19 @@ paths:
       - bearerAuth: []
 components:
   schemas:
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
     Subscriber:
       type: object
       properties:
@@ -86,8 +99,9 @@ components:
           type: string
           format: date-time
         management_url:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         entitlements:
           type: object
           additionalProperties:
@@ -106,18 +120,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type: string
-          format: date-time
-          nullable: true
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
     SubscriberResponse:
       type: object
       properties:

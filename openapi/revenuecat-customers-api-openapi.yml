@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Customers API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Customers API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -97,7 +97,47 @@ paths:
       security:
       - bearerAuth: []
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The customer (App User ID) identifier.
+      schema:
+        type: string
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
   schemas:
+    CustomerList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
     Customer:
       type: object
       properties:
@@ -117,15 +157,6 @@ components:
           format: int64
         active_entitlements:
           type: object
-    CustomerList:
-      allOf:
-      - $ref: '#/components/schemas/ListEnvelope'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Customer'
     ListEnvelope:
       type: object
       properties:
@@ -135,39 +166,9 @@ components:
         url:
           type: string
         next_page:
-          type: string
-          nullable: true
-  parameters:
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The customer (App User ID) identifier.
-      schema:
-        type: string
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for pagination; the id of the last object on the previous page.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of items to return per page.
-      schema:
-        type: integer
-        default: 20
-        maximum: 1000
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: The RevenueCat project identifier.
-      schema:
-        type: string
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

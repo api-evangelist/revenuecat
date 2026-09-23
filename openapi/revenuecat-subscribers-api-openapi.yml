@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Subscribers API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Subscribers API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -75,22 +75,31 @@ paths:
       security:
       - bearerAuth: []
 components:
-  parameters:
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
   schemas:
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
+    SubscriberResponse:
+      type: object
+      properties:
+        request_date:
+          type: string
+          format: date-time
+        request_date_ms:
+          type: integer
+          format: int64
+        subscriber:
+          $ref: '#/components/schemas/Subscriber'
     SubscriberAttributesRequest:
       type: object
       properties:
@@ -104,29 +113,6 @@ components:
               updated_at_ms:
                 type: integer
                 format: int64
-    SubscriberResponse:
-      type: object
-      properties:
-        request_date:
-          type: string
-          format: date-time
-        request_date_ms:
-          type: integer
-          format: int64
-        subscriber:
-          $ref: '#/components/schemas/Subscriber'
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type: string
-          format: date-time
-          nullable: true
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
     Subscriber:
       type: object
       properties:
@@ -139,8 +125,9 @@ components:
           type: string
           format: date-time
         management_url:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         entitlements:
           type: object
           additionalProperties:
@@ -159,6 +146,21 @@ components:
           type: object
           additionalProperties:
             type: object
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

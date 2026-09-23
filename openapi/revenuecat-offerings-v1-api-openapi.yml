@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Offerings (v1) API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Offerings (v1) API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -59,13 +59,29 @@ paths:
       security:
       - bearerAuth: []
 components:
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   schemas:
     OfferingsResponse:
       type: object
       properties:
         current_offering_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         offerings:
           type: array
           items:
@@ -79,21 +95,6 @@ components:
                 type: array
                 items:
                   type: object
-  parameters:
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

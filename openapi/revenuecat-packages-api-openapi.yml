@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Packages API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Packages API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -110,13 +110,6 @@ paths:
       - bearerAuth: []
 components:
   parameters:
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for pagination; the id of the last object on the previous page.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -126,13 +119,6 @@ components:
         type: integer
         default: 20
         maximum: 1000
-    OfferingId:
-      name: offering_id
-      in: path
-      required: true
-      description: The offering identifier.
-      schema:
-        type: string
     ProjectId:
       name: project_id
       in: path
@@ -140,16 +126,33 @@ components:
       description: The RevenueCat project identifier.
       schema:
         type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    OfferingId:
+      name: offering_id
+      in: path
+      required: true
+      description: The offering identifier.
+      schema:
+        type: string
   schemas:
-    PackageList:
-      allOf:
-      - $ref: '#/components/schemas/ListEnvelope'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Package'
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type:
+          - string
+          - 'null'
     Package:
       type: object
       properties:
@@ -164,17 +167,15 @@ components:
           type: string
         position:
           type: integer
-    ListEnvelope:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        url:
-          type: string
-        next_page:
-          type: string
-          nullable: true
+    PackageList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Package'
   securitySchemes:
     bearerAuth:
       type: http

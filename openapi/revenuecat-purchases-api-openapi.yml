@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: RevenueCat REST Apps Purchases API
-  description: Representative OpenAPI description of RevenueCat's public REST surface. It covers the v1 REST API (https://api.revenuecat.com/v1) for subscribers, receipts/purchases, entitlements, offerings, and subscriber attributes, and the v2 REST API (https://api.revenuecat.com/v2) for projects, apps, customers, products, entitlements, offerings, and packages. Both APIs use HTTP Bearer authentication with a RevenueCat API key (v1 public or secret keys; v2 API keys). RevenueCat also delivers subscription lifecycle events via outbound webhooks (documented separately).
+  title: RevenueCat REST Purchases API
+  description: Representative OpenAPI description of RevenueCat's public REST surface.
   termsOfService: https://www.revenuecat.com/terms/
   contact:
     name: RevenueCat Support
@@ -101,22 +101,20 @@ paths:
       security:
       - bearerAuth: []
 components:
-  parameters:
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
   schemas:
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
     SubscriberResponse:
       type: object
       properties:
@@ -128,50 +126,6 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type: string
-          format: date-time
-          nullable: true
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
-    Subscriber:
-      type: object
-      properties:
-        original_app_user_id:
-          type: string
-        first_seen:
-          type: string
-          format: date-time
-        last_seen:
-          type: string
-          format: date-time
-        management_url:
-          type: string
-          nullable: true
-        entitlements:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/EntitlementInfo'
-        subscriptions:
-          type: object
-          additionalProperties:
-            type: object
-        non_subscriptions:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-        subscriber_attributes:
-          type: object
-          additionalProperties:
-            type: object
     ReceiptRequest:
       type: object
       required:
@@ -193,6 +147,54 @@ components:
           type: boolean
         presented_offering_identifier:
           type: string
+    Subscriber:
+      type: object
+      properties:
+        original_app_user_id:
+          type: string
+        first_seen:
+          type: string
+          format: date-time
+        last_seen:
+          type: string
+          format: date-time
+        management_url:
+          type:
+          - string
+          - 'null'
+        entitlements:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EntitlementInfo'
+        subscriptions:
+          type: object
+          additionalProperties:
+            type: object
+        non_subscriptions:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+        subscriber_attributes:
+          type: object
+          additionalProperties:
+            type: object
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

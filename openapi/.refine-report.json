@@ -1,17 +1,7 @@
 {
   "provider": "revenuecat",
   "sources": [
-    "revenuecat-apps-api-openapi.yml",
-    "revenuecat-customers-api-openapi.yml",
-    "revenuecat-entitlements-v1-api-openapi.yml",
-    "revenuecat-entitlements-v2-api-openapi.yml",
-    "revenuecat-offerings-v1-api-openapi.yml",
-    "revenuecat-offerings-v2-api-openapi.yml",
-    "revenuecat-packages-api-openapi.yml",
-    "revenuecat-products-api-openapi.yml",
-    "revenuecat-projects-api-openapi.yml",
-    "revenuecat-purchases-api-openapi.yml",
-    "revenuecat-subscribers-api-openapi.yml"
+    "_original/revenuecat-openapi.yml"
   ],
   "outputs": [
     "revenuecat-apps-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "revenuecat-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "revenuecat-apps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-entitlements-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-entitlements-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-offerings-v1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-offerings-v2-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-packages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-purchases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "revenuecat-subscribers-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
