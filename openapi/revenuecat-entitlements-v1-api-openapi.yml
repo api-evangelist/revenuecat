@@ -73,20 +73,15 @@ paths:
       security:
       - bearerAuth: []
 components:
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   schemas:
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
     Subscriber:
       type: object
       properties:
@@ -120,6 +115,19 @@ components:
           type: object
           additionalProperties:
             type: object
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
     SubscriberResponse:
       type: object
       properties:
@@ -131,14 +139,6 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
-  parameters:
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

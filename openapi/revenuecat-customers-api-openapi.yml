@@ -97,47 +97,19 @@ paths:
       security:
       - bearerAuth: []
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of items to return per page.
-      schema:
-        type: integer
-        default: 20
-        maximum: 1000
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The customer (App User ID) identifier.
-      schema:
-        type: string
-    ProjectId:
-      name: project_id
-      in: path
-      required: true
-      description: The RevenueCat project identifier.
-      schema:
-        type: string
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for pagination; the id of the last object on the previous page.
-      schema:
-        type: string
   schemas:
-    CustomerList:
-      allOf:
-      - $ref: '#/components/schemas/ListEnvelope'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Customer'
+    ListEnvelope:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        url:
+          type: string
+        next_page:
+          type:
+          - string
+          - 'null'
     Customer:
       type: object
       properties:
@@ -157,18 +129,46 @@ components:
           format: int64
         active_entitlements:
           type: object
-    ListEnvelope:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        url:
-          type: string
-        next_page:
-          type:
-          - string
-          - 'null'
+    CustomerList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Customer'
+  parameters:
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The customer (App User ID) identifier.
+      schema:
+        type: string
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: The RevenueCat project identifier.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of items to return per page.
+      schema:
+        type: integer
+        default: 20
+        maximum: 1000
   securitySchemes:
     bearerAuth:
       type: http
