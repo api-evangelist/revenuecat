@@ -59,6 +59,21 @@ paths:
       security:
       - bearerAuth: []
 components:
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   schemas:
     OfferingsResponse:
       type: object
@@ -80,21 +95,6 @@ components:
                 type: array
                 items:
                   type: object
-  parameters:
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -117,6 +117,40 @@ components:
       schema:
         type: string
   schemas:
+    ReceiptRequest:
+      type: object
+      required:
+      - app_user_id
+      - fetch_token
+      properties:
+        app_user_id:
+          type: string
+        fetch_token:
+          type: string
+          description: The store receipt or purchase token to validate.
+        product_id:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        is_restore:
+          type: boolean
+        presented_offering_identifier:
+          type: string
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
     Subscriber:
       type: object
       properties:
@@ -161,40 +195,6 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
-    ReceiptRequest:
-      type: object
-      required:
-      - app_user_id
-      - fetch_token
-      properties:
-        app_user_id:
-          type: string
-        fetch_token:
-          type: string
-          description: The store receipt or purchase token to validate.
-        product_id:
-          type: string
-        price:
-          type: number
-        currency:
-          type: string
-        is_restore:
-          type: boolean
-        presented_offering_identifier:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

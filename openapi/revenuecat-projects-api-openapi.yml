@@ -39,15 +39,6 @@ paths:
       - bearerAuth: []
 components:
   schemas:
-    ProjectList:
-      allOf:
-      - $ref: '#/components/schemas/ListEnvelope'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Project'
     ListEnvelope:
       type: object
       properties:
@@ -60,6 +51,15 @@ components:
           type:
           - string
           - 'null'
+    ProjectList:
+      allOf:
+      - $ref: '#/components/schemas/ListEnvelope'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Project'
     Project:
       type: object
       properties:
@@ -74,13 +74,6 @@ components:
           type: integer
           format: int64
   parameters:
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for pagination; the id of the last object on the previous page.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -90,6 +83,13 @@ components:
         type: integer
         default: 20
         maximum: 1000
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for pagination; the id of the last object on the previous page.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

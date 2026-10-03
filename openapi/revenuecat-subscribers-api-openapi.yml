@@ -75,6 +75,21 @@ paths:
       security:
       - bearerAuth: []
 components:
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
   schemas:
     SubscriberAttributesRequest:
       type: object
@@ -89,6 +104,19 @@ components:
               updated_at_ms:
                 type: integer
                 format: int64
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
     Subscriber:
       type: object
       properties:
@@ -133,34 +161,6 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
-  parameters:
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

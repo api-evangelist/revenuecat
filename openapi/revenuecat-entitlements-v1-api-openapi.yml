@@ -73,14 +73,6 @@ paths:
       security:
       - bearerAuth: []
 components:
-  parameters:
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
   schemas:
     Subscriber:
       type: object
@@ -139,6 +131,14 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
+  parameters:
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
