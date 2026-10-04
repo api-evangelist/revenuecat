@@ -101,56 +101,7 @@ paths:
       security:
       - bearerAuth: []
 components:
-  parameters:
-    AppUserId:
-      name: app_user_id
-      in: path
-      required: true
-      description: The App User ID that identifies the customer.
-      schema:
-        type: string
-    PlatformHeader:
-      name: X-Platform
-      in: header
-      required: false
-      description: The platform the request originates from (ios, android, etc.).
-      schema:
-        type: string
   schemas:
-    ReceiptRequest:
-      type: object
-      required:
-      - app_user_id
-      - fetch_token
-      properties:
-        app_user_id:
-          type: string
-        fetch_token:
-          type: string
-          description: The store receipt or purchase token to validate.
-        product_id:
-          type: string
-        price:
-          type: number
-        currency:
-          type: string
-        is_restore:
-          type: boolean
-        presented_offering_identifier:
-          type: string
-    EntitlementInfo:
-      type: object
-      properties:
-        expires_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        purchase_date:
-          type: string
-          format: date-time
-        product_identifier:
-          type: string
     Subscriber:
       type: object
       properties:
@@ -184,6 +135,40 @@ components:
           type: object
           additionalProperties:
             type: object
+    EntitlementInfo:
+      type: object
+      properties:
+        expires_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        purchase_date:
+          type: string
+          format: date-time
+        product_identifier:
+          type: string
+    ReceiptRequest:
+      type: object
+      required:
+      - app_user_id
+      - fetch_token
+      properties:
+        app_user_id:
+          type: string
+        fetch_token:
+          type: string
+          description: The store receipt or purchase token to validate.
+        product_id:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+        is_restore:
+          type: boolean
+        presented_offering_identifier:
+          type: string
     SubscriberResponse:
       type: object
       properties:
@@ -195,6 +180,21 @@ components:
           format: int64
         subscriber:
           $ref: '#/components/schemas/Subscriber'
+  parameters:
+    PlatformHeader:
+      name: X-Platform
+      in: header
+      required: false
+      description: The platform the request originates from (ios, android, etc.).
+      schema:
+        type: string
+    AppUserId:
+      name: app_user_id
+      in: path
+      required: true
+      description: The App User ID that identifies the customer.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
