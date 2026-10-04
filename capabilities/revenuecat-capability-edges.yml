@@ -1,0 +1,44 @@
+slug: revenuecat
+provider: RevenueCat
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Entitlements (v1)
+  spec_file: revenuecat-entitlements-v1-api-openapi.yml
+  capability_id: BC-4240.70
+  capability_id_l1: BC-4240
+  capability_name: Entitlement Enforcement
+  confidence: 0.88
+  evidence: POST /subscribers/{app_user_id}/entitlements/{entitlement_identifier}/promotional  grantPromotionalEntitlement
+  reason: Granting and revoking promotional entitlements for subscribers is subscription entitlement resolution
+    and enforcement.
+- tag: Entitlements (v2)
+  spec_file: revenuecat-entitlements-v2-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.82
+  evidence: 'POST /projects/{project_id}/entitlements  createEntitlement  Create an entitlement; schemas:
+    Entitlement, EntitlementList'
+  reason: CRUD over entitlement definitions within a project is the design of what features a plan grants
+    — Plan & Entitlement Design in the subscription lifecycle.
+- tag: Offerings (v2)
+  spec_file: revenuecat-offerings-v2-api-openapi.yml
+  capability_id: BC-4240.10
+  capability_id_l1: BC-4240
+  capability_name: Plan & Entitlement Design
+  confidence: 0.7
+  evidence: 'POST /projects/{project_id}/offerings  createOfferingV2  Create an offering; schemas: OfferingV2,
+    OfferingListV2'
+  reason: Project-level creation and listing of offerings defines the plan catalogue customers can subscribe
+    to.

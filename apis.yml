@@ -477,6 +477,9 @@ apis:
   - type: Documentation
     url: https://www.revenuecat.com/docs/api-v2#tag/Package
 common:
+- type: CapabilityMap
+  url: capabilities/revenuecat-capability-edges.yml
+  name: RevenueCat Business Capability Map
 - type: AgenticAccess
   url: agentic-access/revenuecat-agentic-access.yml
 - type: DomainSecurity
