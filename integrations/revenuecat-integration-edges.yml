@@ -1,5 +1,41 @@
 generated: '2026-10-14'
 edges:
+- partner_name: Stripe Partner Ecosystem
+  partner: stripe
+  partner_match: register
+  type: register
+  direction: partner-built
+  channel: standard-directory
+  relationship: standard-participant
+  evidence: https://stripe.partners/directory/revenuecat
+  category: billing / subscription partner of Stripe
+  contract_reference:
+    register: Stripe Partner Ecosystem directory (stripe.partners, PartnerPage SSR __NUXT_DATA__)
+    standard: Stripe Partner Ecosystem
+    spec_file: null
+    role: stripe-partner
+    registered_name: RevenueCat
+    register_id: revenuecat
+    partner_tier: null
+    matched_domain: revenuecat.com
+    matched_by: domain
+    identity_source: the directory's own website field for the partner (no lookup)
+    signal_note: listing = participation; Stripe Certified Professional Developers certify PEOPLE at the firm (context,
+      never certified_products); partner_tier, callouts and products are never counted
+    context:
+      callouts:
+      - Revenue optimization
+      stripe_products:
+      - Billing
+      - Connect
+      - Invoicing
+      - Payment Links
+      - Payments
+      location: San Diego, United States
+    detected_by: sweep-billing-subscriptions.py
+    detected: '2026-10-19'
+  detected_by: sweep-billing-subscriptions.py
+  first_seen: '2026-10-19'
 - partner_name: mParticle
   partner: mparticle
   partner_match: aggregator
@@ -19,23 +55,6 @@ edges:
       - feed
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
-- partner_name: Stripe (own)
-  partner: stripe
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.stripe.com/apps/revenuecat
-  mirror_of: stripe/integrations/stripe-integration-edges.yml
-  apps:
-  - RevenueCat
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: developer_tools, revenue_optimization
 - partner_name: Airbyte
   partner: airbyte
   partner_match: aggregator
@@ -92,42 +111,40 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
-- partner_name: Stripe Partner Ecosystem
+- partner_name: Stripe (own)
   partner: stripe
-  partner_match: register
-  type: register
-  direction: partner-built
-  channel: standard-directory
-  relationship: standard-participant
-  evidence: https://stripe.partners/directory/revenuecat
-  category: billing / subscription partner of Stripe
-  contract_reference:
-    register: Stripe Partner Ecosystem directory (stripe.partners, PartnerPage SSR __NUXT_DATA__)
-    standard: Stripe Partner Ecosystem
-    spec_file: null
-    role: stripe-partner
-    registered_name: RevenueCat
-    register_id: revenuecat
-    partner_tier: null
-    matched_domain: revenuecat.com
-    matched_by: domain
-    identity_source: the directory's own website field for the partner (no lookup)
-    signal_note: listing = participation; Stripe Certified Professional Developers certify PEOPLE at the firm (context,
-      never certified_products); partner_tier, callouts and products are never counted
-    context:
-      callouts:
-      - Revenue optimization
-      stripe_products:
-      - Billing
-      - Connect
-      - Invoicing
-      - Payment Links
-      - Payments
-      location: San Diego, United States
-    detected_by: sweep-billing-subscriptions.py
-    detected: '2026-10-19'
-  detected_by: sweep-billing-subscriptions.py
-  first_seen: '2026-10-19'
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/revenuecat
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - RevenueCat
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: developer_tools, revenue_optimization
+- partner_name: Zendesk (own)
+  partner: zendesk
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.zendesk.com/marketplace/apps/support/1138597/revenuecat-customer-profiles/
+  mirror_of: zendesk/integrations/zendesk-integration-edges.yml
+  apps:
+  - RevenueCat Customer Profiles
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Agent Productivity
 method: searched
 checked:
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
@@ -137,4 +154,5 @@ checked:
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://stripe.partners/sitemap.xml
 - stripe/integrations/stripe-integration-edges.yml
+- zendesk/integrations/zendesk-integration-edges.yml
 source: https://docs.mparticle.com/integrations/revenuecat/feed/
