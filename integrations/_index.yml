@@ -212,6 +212,49 @@
     detected: '2026-10-21'
   status: not-a-workflow
   arazzo: null
+- slug: revenuecat-raycast
+  label: Raycast
+  partner: raycast
+  partner_name: Raycast
+  category: Raycast Store extension (community wrapper)
+  type: marketplace
+  marketplace: raycast-store
+  channel: connector-listing
+  evidence: https://www.raycast.com/samuelkraft/revenuecat
+  source: edge
+  relationship: connector-coverage
+  contract_reference:
+    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
+    spec_file: null
+    role: raycast-community-wrapper
+    builder: community
+    authors:
+    - samuelkraft
+    matched_domain: revenuecat.com
+    matched_by: domain
+    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
+    listings:
+    - title: RevenueCat
+      store_url: https://www.raycast.com/samuelkraft/revenuecat
+      installs: 12
+      categories:
+      - Finance
+      - Developer Tools
+      - AI Extensions
+      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/revenuecat/
+      author: samuelkraft
+    categories:
+    - AI Extensions
+    - Developer Tools
+    - Finance
+    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
+      passes partner_link's name check; built by Raycast community developers, not the vendor
+    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
+      (product, store); install / listing counts are context, never counted'
+    detected_by: sweep-raycast-store-extensions.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
 - slug: revenuecat-stripe-own
   label: Stripe (own)
   partner: stripe
@@ -264,46 +307,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: revenuecat-raycast
-  label: Raycast
-  partner: raycast
-  partner_name: Raycast
-  category: Raycast Store extension (community wrapper)
+- slug: revenuecat-intercom-own
+  label: Intercom (own)
+  partner: intercom
+  partner_name: Intercom (own)
+  category: Customer data & CRM
   type: marketplace
-  marketplace: raycast-store
-  channel: connector-listing
-  evidence: https://www.raycast.com/samuelkraft/revenuecat
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.intercom.com/app-store/?app_package_code=revenuecat-customer-profiles-2oan
   source: edge
-  relationship: connector-coverage
-  contract_reference:
-    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
-    spec_file: null
-    role: raycast-community-wrapper
-    builder: community
-    authors:
-    - samuelkraft
-    matched_domain: revenuecat.com
-    matched_by: domain
-    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
-    listings:
-    - title: RevenueCat
-      store_url: https://www.raycast.com/samuelkraft/revenuecat
-      installs: 12
-      categories:
-      - Finance
-      - Developer Tools
-      - AI Extensions
-      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/revenuecat/
-      author: samuelkraft
-    categories:
-    - AI Extensions
-    - Developer Tools
-    - Finance
-    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
-      passes partner_link's name check; built by Raycast community developers, not the vendor
-    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
-      (product, store); install / listing counts are context, never counted'
-    detected_by: sweep-raycast-store-extensions.py
-    detected: '2026-10-22'
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
