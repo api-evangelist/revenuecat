@@ -1,4 +1,4 @@
-# RevenueCat (revenuecat)
+# RevenueCat
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,286 +66,137 @@
 
 RevenueCat provides in-app subscription and purchase infrastructure for mobile and web apps. It abstracts App Store, Google Play, Amazon, Stripe, Roku, and Paddle billing behind cross-platform SDKs and a REST API, handling receipt validation, entitlements, subscriber state, offerings and paywalls, experiments, and subscription analytics. A v1 REST API manages live subscribers and purchases; a v2 REST API manages the project catalog (projects, apps, products, entitlements, offerings, packages); webhooks stream subscription lifecycle events.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/revenuecat/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/revenuecat/refs/heads/main/apis.yml)
+**Areas:** Subscription · In-App Purchases · Billing · Mobile · Entitlements
 
-## Tags
+## RevenueCat on APIs.io
 
-- Subscriptions
-- In-App Purchases
-- Billing
-- Mobile
-- Entitlements
+Everything profiled for RevenueCat is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/revenuecat/](https://apis.io/providers/revenuecat/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (12)
 
-- **Created:** 2026-07-01
-- **Modified:** 2026-07-01
+- [RevenueCat Webhooks](https://apis.io/apis/revenuecat/revenuecat-webhooks/) — Outbound webhooks that POST subscription lifecycle events (INITIAL_PURCHASE, RENEWAL, CANCELLATION, EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to…
+- [RevenueCat Apps API](https://apis.io/apis/revenuecat/revenuecat-apps-api/) — v2 app (platform integration) management.
+- [RevenueCat Customers API](https://apis.io/apis/revenuecat/revenuecat-customers-api/) — v2 customer management.
+- [RevenueCat Entitlements (v1) API](https://apis.io/apis/revenuecat/revenuecat-entitlements-v1-api/) — v1 promotional entitlement grant and revoke.
+- [RevenueCat Entitlements (v2) API](https://apis.io/apis/revenuecat/revenuecat-entitlements-v2-api/) — v2 entitlement definitions.
+- [RevenueCat Offerings (v1) API](https://apis.io/apis/revenuecat/revenuecat-offerings-v1-api/) — v1 offering fetch and override.
+- [RevenueCat Offerings (v2) API](https://apis.io/apis/revenuecat/revenuecat-offerings-v2-api/) — v2 offering definitions.
+- [RevenueCat Packages API](https://apis.io/apis/revenuecat/revenuecat-packages-api/) — v2 package definitions within an offering.
+- [RevenueCat Products API](https://apis.io/apis/revenuecat/revenuecat-products-api/) — v2 product catalog management.
+- [RevenueCat Projects API](https://apis.io/apis/revenuecat/revenuecat-projects-api/) — v2 project management.
+- [RevenueCat Purchases API](https://apis.io/apis/revenuecat/revenuecat-purchases-api/) — v1 receipt validation and transaction lifecycle operations.
+- [RevenueCat Subscribers API](https://apis.io/apis/revenuecat/revenuecat-subscribers-api/) — v1 customer (app user) records, attributes, and state.
 
-## APIs
+### Published properties
 
-### RevenueCat Subscribers API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-v1 endpoints to get or create a subscriber, delete a subscriber, and read entitlements, subscriptions, and non-subscription purchases for an App User ID.
+#### Agentic access (1)
 
-- **Human URL:** [https://www.revenuecat.com/docs/api-v1](https://www.revenuecat.com/docs/api-v1)
-- **Base URL:** `https://api.revenuecat.com/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Revenuecat Agentic Access](https://apis.io/agentic-access/revenuecat/revenuecat-agentic-access/)
 
-- Subscribers
-- Customers
-- App User ID
+#### Collections (12)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://www.revenuecat.com/docs/api-v1#tag/customers)
-- [API Reference](https://www.revenuecat.com/docs/api-v1)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [RevenueCat REST API](https://apis.io/collections/revenuecat/open-revenuecat/)
+- [RevenueCat REST Apps API](https://apis.io/collections/revenuecat/open-revenuecat-apps-api/)
+- [RevenueCat REST Apps Customers API](https://apis.io/collections/revenuecat/open-revenuecat-customers-api/)
+- [RevenueCat REST Apps Entitlements (v1) API](https://apis.io/collections/revenuecat/open-revenuecat-entitlements-v1-api/)
+- [RevenueCat REST Apps Entitlements (v2) API](https://apis.io/collections/revenuecat/open-revenuecat-entitlements-v2-api/)
+- [RevenueCat REST Apps Offerings (v1) API](https://apis.io/collections/revenuecat/open-revenuecat-offerings-v1-api/)
+- [RevenueCat REST Apps Offerings (v2) API](https://apis.io/collections/revenuecat/open-revenuecat-offerings-v2-api/)
+- [RevenueCat REST Apps Packages API](https://apis.io/collections/revenuecat/open-revenuecat-packages-api/)
+- [RevenueCat REST Apps Products API](https://apis.io/collections/revenuecat/open-revenuecat-products-api/)
+- [RevenueCat REST Apps Projects API](https://apis.io/collections/revenuecat/open-revenuecat-projects-api/)
+- [RevenueCat REST Apps Purchases API](https://apis.io/collections/revenuecat/open-revenuecat-purchases-api/)
+- [RevenueCat REST Apps Subscribers API](https://apis.io/collections/revenuecat/open-revenuecat-subscribers-api/)
 
-### RevenueCat Purchases & Receipts API
+#### Security (2)
 
-v1 receipt validation (POST /receipts) across App Store, Google Play, Amazon, Stripe, Roku, and Paddle, plus transaction refund, defer, cancel, and extend operations.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://www.revenuecat.com/docs/api-v1#tag/transactions](https://www.revenuecat.com/docs/api-v1#tag/transactions)
-- **Base URL:** `https://api.revenuecat.com/v1`
+- [Revenuecat Authentication](https://apis.io/security/revenuecat/revenuecat-authentication/)
+- [Revenuecat Domain Security](https://apis.io/security/revenuecat/revenuecat-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Purchases
-- Receipts
-- Transactions
+Published plans, tiers and prices.
 
-#### Properties
+- [Revenuecat Plans Pricing](https://apis.io/plans/revenuecat/revenuecat-plans-pricing/)
 
-- [Documentation](https://www.revenuecat.com/docs/api-v1#tag/transactions)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### RevenueCat Entitlements API (v1)
+Published request limits.
 
-v1 promotional entitlement operations - grant a complimentary entitlement to a subscriber for a fixed duration and revoke promotional grants.
+- [Revenuecat Rate Limits](https://apis.io/rate-limits/revenuecat/revenuecat-rate-limits/)
 
-- **Human URL:** [https://www.revenuecat.com/docs/api-v1#tag/entitlements](https://www.revenuecat.com/docs/api-v1#tag/entitlements)
-- **Base URL:** `https://api.revenuecat.com/v1`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Entitlements
-- Promotional
-- Grants
+- [Revenuecat Finops](https://apis.io/finops/revenuecat/revenuecat-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://www.revenuecat.com/docs/api-v1#tag/entitlements)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### RevenueCat Offerings API (v1)
-
-v1 endpoints to fetch the offerings (and packages) resolved for a subscriber - including experiment and targeting evaluation - and to override or clear the current offering for a user.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v1#tag/offerings](https://www.revenuecat.com/docs/api-v1#tag/offerings)
-- **Base URL:** `https://api.revenuecat.com/v1`
-
-#### Tags
-
-- Offerings
-- Paywalls
-- Targeting
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v1#tag/offerings)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Customer Attributes API
-
-v1 endpoint to set or update custom and reserved subscriber attributes (POST /subscribers/{app_user_id}/attributes) for segmentation, attribution, and messaging.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v1#tag/customers/operation/attributes](https://www.revenuecat.com/docs/api-v1#tag/customers/operation/attributes)
-- **Base URL:** `https://api.revenuecat.com/v1`
-
-#### Tags
-
-- Attributes
-- Customer Data
-- Segmentation
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/customers/customer-attributes)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Projects API (v2)
-
-v2 endpoints to list the projects an API key can access - the top-level container for apps, products, entitlements, offerings, and customers.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Project](https://www.revenuecat.com/docs/api-v2#tag/Project)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Projects
-- Configuration
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Project)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Apps API (v2)
-
-v2 CRUD for apps - the per-store integrations (App Store, Play Store, Amazon, Stripe, and more) inside a project.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/App](https://www.revenuecat.com/docs/api-v2#tag/App)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Apps
-- Store Integrations
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/App)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Customers API (v2)
-
-v2 endpoints to list, create, retrieve, and delete customers within a project, with active entitlements and subscription state.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Customer](https://www.revenuecat.com/docs/api-v2#tag/Customer)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Customers
-- Subscribers
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Customer)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Products API (v2)
-
-v2 CRUD for products - the store-mapped subscription and one-time purchase SKUs that back entitlements and packages.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Product](https://www.revenuecat.com/docs/api-v2#tag/Product)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Products
-- Catalog
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Product)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Entitlements API (v2)
-
-v2 CRUD for entitlement definitions - the named access levels that products unlock and that gate premium features.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Entitlement](https://www.revenuecat.com/docs/api-v2#tag/Entitlement)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Entitlements
-- Access Levels
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Entitlement)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Offerings API (v2)
-
-v2 CRUD for offering definitions - the configurable sets of packages presented on paywalls, including the current offering flag.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Offering](https://www.revenuecat.com/docs/api-v2#tag/Offering)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Offerings
-- Paywalls
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Offering)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Packages API (v2)
-
-v2 CRUD for packages - the duration-typed purchase options (monthly, annual, lifetime) within an offering that map products to display positions.
-
-- **Human URL:** [https://www.revenuecat.com/docs/api-v2#tag/Package](https://www.revenuecat.com/docs/api-v2#tag/Package)
-- **Base URL:** `https://api.revenuecat.com/v2`
-
-#### Tags
-
-- Packages
-- Pricing
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/api-v2#tag/Package)
-- [OpenAPI](openapi/revenuecat-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/revenuecat.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/revenuecat.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### RevenueCat Webhooks
-
-Outbound webhooks that POST subscription lifecycle events (INITIAL_PURCHASE, RENEWAL, CANCELLATION, EXPIRATION, BILLING_ISSUE, PRODUCT_CHANGE, and more) to a customer endpoint, secured with an Authorization header.
-
-- **Human URL:** [https://www.revenuecat.com/docs/integrations/webhooks](https://www.revenuecat.com/docs/integrations/webhooks)
-- **Base URL:** `https://api.revenuecat.com/v1`
-
-#### Tags
-
-- Webhooks
-- Events
-- Lifecycle
-
-#### Properties
-
-- [Documentation](https://www.revenuecat.com/docs/integrations/webhooks)
-- [Documentation](https://www.revenuecat.com/docs/integrations/webhooks/event-types-and-fields)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/RevenueCat)
-- [LinkedIn](https://www.linkedin.com/company/revenuecat)
 - [Website](https://www.revenuecat.com/)
 - [Documentation](https://www.revenuecat.com/docs)
-- [Plans](plans/revenuecat-plans-pricing.yml)
-- [Rate Limits](rate-limits/revenuecat-rate-limits.yml)
-- [Fin Ops](finops/revenuecat-finops.yml)
+- [Blog](https://www.revenuecat.com/blog/rss.xml)
+- [GitHub](https://github.com/RevenueCat)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 45.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 7.9 |
+
+**Agent readiness 22.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/revenuecat/](https://apis.io/providers/revenuecat/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for RevenueCat: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/revenuecat/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
